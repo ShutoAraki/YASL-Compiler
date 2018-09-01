@@ -34,7 +34,6 @@ public class Scanner {
 		StringBuilder lexeme = new StringBuilder();
 		int startLine = source.line;
 		int startColumn = source.column;
-		//boolean end_condition = (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';');
 		
 		while (true) {
 			switch (state) {
