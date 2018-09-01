@@ -42,3 +42,4 @@ EOF 8:1
 
 For example, the following Deterministic Finite State Transducer ([FST](http://web.cs.ucdavis.edu/~rogaway/classes/120/spring13/eric-transducers.pdf)) diagram helps with coding the `NUM` token type.
 
+![](https://github.com/ShutoAraki/YASL-Compiler/blob/master/doc/images/FST_num.png)
