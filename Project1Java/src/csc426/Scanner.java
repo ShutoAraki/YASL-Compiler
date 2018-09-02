@@ -53,89 +53,35 @@ public class Scanner {
 					lexeme.append(source.current);
 					source.advance();
 					state = 2;
-				} else if (source.current == ';') {
+				} else if (Character.isAlphabetic(source.current)){
 					startLine = source.line;
 					startColumn = source.column;
 					lexeme.append(source.current);
 					source.advance();
 					state = 3;
-				} else if (source.current == 'v') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 4;
-				} else if (source.current == '=') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 8;
-				} else if (source.current == '+') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 9;
-				} else if (source.current == '-') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 10;
-				} else if (source.current == '*') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 11;
-				} else if (source.current == 'm') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 12;
-				} else if (source.current == 'd') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 15;
-				} else if (source.current == 'p') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 18;
-				} else if (source.current == 'b') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 25;
-				} else if (source.current == 'e') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 30;
-				} else if (source.current == '.') {
-					startLine = source.line;
-					startColumn = source.column;
-					lexeme.append(source.current);
-					source.advance();
-					state = 33;
-				} else if (Character.isAlphabetic(source.current)){
-						startLine = source.line;
-						startColumn = source.column;
-						lexeme.append(source.current);
-						source.advance();
-						state = 7;
-				} else if (Character.isWhitespace(source.current)) {
-					source.advance();
 				} else if (source.current == '/') {
 					source.advance();
-					state = 37;
+					state = 4;
+				} else if (source.current == '+') {
+					source.advance();
+					state = 8;
+				} else if (source.current == '-') {
+					source.advance();
+					state = 9;
+				} else if (source.current == '*') {
+					source.advance();
+					state = 10;
+				} else if (source.current == ';') {
+					source.advance();
+					state = 11;
+				} else if (source.current == '.') {
+					source.advance();
+					state = 12;
+				} else if (source.current == '=') {
+					source.advance();
+					state = 13;
+				} else if (Character.isWhitespace(source.current)) {
+					source.advance();
 				} else {
 					System.err.println("Illegal character: " + source.current);
 					source.advance();
@@ -154,354 +100,83 @@ public class Scanner {
 				}
 				break;
 			case 3:
-				/*
-				if (source.current == '\n' || source.atEOF) {
-					return new Token(startLine, startColumn, TokenType.SEMI, lexeme.toString());
-				} else {
-					System.err.println();
+				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current)) {
+					lexeme.append(source.current);
+					source.advance();
+				} else if (Character.isWhitespace(source.current) || source.current == ';' || source.current == '.') {
+					if (lexeme.toString().equals("program"))
+						return new Token(startLine, startColumn, TokenType.PROGRAM, null);
+					else if (lexeme.toString().equals("print"))
+						return new Token(startLine, startColumn, TokenType.PRINT, null);
+					else if (lexeme.toString().equals("mod"))
+						return new Token(startLine, startColumn, TokenType.MOD, null);
+					else if (lexeme.toString().equals("div"))
+						return new Token(startLine, startColumn, TokenType.DIV, null);
+					else if (lexeme.toString().equals("val"))
+						return new Token(startLine, startColumn, TokenType.VAL, null);
+					else if (lexeme.toString().equals("begin"))
+						return new Token(startLine, startColumn, TokenType.BEGIN, null);
+					else if (lexeme.toString().equals("end"))
+						return new Token(startLine, startColumn, TokenType.END, null);
+					else
+						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
+				} else if (source.current == '+')
+					return new Token(startLine, startColumn, TokenType.PLUS, null);
+				else if (source.current == '-')
+					return new Token(startLine, startColumn, TokenType.MINUS, null);
+				else if (source.current == '*')
+					return new Token(startLine, startColumn, TokenType.STAR, null);
+				else if (source.current == ';')
+					return new Token(startLine, startColumn, TokenType.SEMI, null);
+				else if (source.current == '.')
+					return new Token(startLine, startColumn, TokenType.PERIOD, null);
+				else if (source.current == '=')
+					return new Token(startLine, startColumn, TokenType.ASSIGN, null);
+				else {
+					System.err.println("Illegal character: " + source.current);
+					source.advance();
 				}
-				*/
-				return new Token(startLine, startColumn, TokenType.SEMI, null);
-				
+				break;
 			case 4:
-				if (source.current == 'a') {
-					lexeme.append(source.current);
-					source.advance();
+				if (source.current == '/')
 					state = 5;
-				} else {
-					// questionable code
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
+				else if (source.current == '*')
+					state = 6;
+				else {
+					System.err.println("Illegal character: " + source.current);
+					state = 0;
 				}
+				source.advance();
 				break;
 			case 5:
-				if (source.current == 'l') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 6;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
+				if (source.current == '\n')
+					state = 0;
+				source.advance();
 				break;
 			case 6:
-				return new Token(startLine, startColumn, TokenType.VAL, null);
+				if (source.current == '*')
+					state = 7;
+				source.advance();
+				break;
 			case 7:
-				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current) || source.current == '_' || source.current == '-') {
-					lexeme.append(source.current);
-					source.advance();
-				} else if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';') {
-					return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());
-				} else {
-					lexeme.append(source.current);
-					System.err.println("Illegal character: " + source.current);
-					source.advance();
-				}
+				if (source.current == '/')
+					state = 0;
+				else
+					state = 6;
+				source.advance();
 				break;
 			case 8:
-				return new Token(startLine, startColumn, TokenType.ASSIGN, null);
-			case 9:
 				return new Token(startLine, startColumn, TokenType.PLUS, null);
-			case 10:
+			case 9:
 				return new Token(startLine, startColumn, TokenType.MINUS, null);
-			case 11:
+			case 10:
 				return new Token(startLine, startColumn, TokenType.STAR, null);
+			case 11:
+				return new Token(startLine, startColumn, TokenType.SEMI, null);
 			case 12:
-				if (source.current == 'o') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 13;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 13:
-				if (source.current == 'd') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 14;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 14:
-				if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';')
-					return new Token(startLine, startColumn, TokenType.MOD, null);
-				else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 15:
-				if (source.current == 'i') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 16;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 16:
-				if (source.current == 'v') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 17;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 17:
-				if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';')
-					return new Token(startLine, startColumn, TokenType.DIV, null);
-				else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 18:
-				if (source.current == 'r') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 19;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 19:
-				if (source.current == 'o') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 20;
-				} else if (source.current == 'i') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 34;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 20:
-				if (source.current == 'g') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 21;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 21:
-				if (source.current == 'r') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 22;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 22:
-				if (source.current == 'a') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 23;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 23:
-				if (source.current == 'm') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 24;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 24:
-				if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';')
-					return new Token(startLine, startColumn, TokenType.PROGRAM, null);
-				else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 25:
-				if (source.current == 'e') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 26;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 26:
-				if (source.current == 'g') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 27;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 27:
-				if (source.current == 'i') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 28;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 28:
-				if (source.current == 'n') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 29;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 29:
-				if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';')
-					return new Token(startLine, startColumn, TokenType.BEGIN, null);
-				else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 30:
-				if (source.current == 'n') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 31;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 31:
-				if (source.current == 'd') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 32;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 32:
-				if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';')
-					return new Token(startLine, startColumn, TokenType.END, null);
-				else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 33:
 				return new Token(startLine, startColumn, TokenType.PERIOD, null);
-			case 34:
-				if (source.current == 'n') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 35;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 35:
-				if (source.current == 't') {
-					lexeme.append(source.current);
-					source.advance();
-					state = 36;
-				} else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 36:
-				if (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';')
-					return new Token(startLine, startColumn, TokenType.PRINT, null);
-				else {
-					lexeme.append(source.current);
-					source.advance();
-					state = 7;
-				}
-				break;
-			case 37:
-				if (source.current == '/') {
-					source.advance();
-					state = 38;
-				} else if (source.current == '*') {
-					source.advance();
-					state = 39;
-				} else {
-					System.err.println("Illegal character: " + source.current);
-					source.advance();
-					state = 0;
-				}
-				break;
-			case 38:
-				if (source.current == '\n') {
-					source.advance();
-					state = 0;
-				} else
-					source.advance();
-				break;
-			case 39:
-				if (source.current == '*') {
-					source.advance();
-					state = 40;
-				} else 
-					source.advance();
-				break;
-			case 40:
-				if (source.current == '/') {
-					source.advance();
-					state = 0;
-				} else {
-					source.advance();
-					state = 39;
-				}
-				break;
+			case 13:
+				return new Token(startLine, startColumn, TokenType.ASSIGN, null);
 			}
 		}
 	}
