@@ -60,26 +60,26 @@ public class Scanner {
 					source.advance();
 					state = 3;
 				} else if (source.current == '/') {
-					source.advance();
 					state = 4;
+					source.advance();
 				} else if (source.current == '+') {
-					source.advance();
 					state = 8;
+					source.advance();
 				} else if (source.current == '-') {
-					source.advance();
 					state = 9;
+					source.advance();
 				} else if (source.current == '*') {
-					source.advance();
 					state = 10;
+					source.advance();
 				} else if (source.current == ';') {
-					source.advance();
 					state = 11;
+					source.advance();
 				} else if (source.current == '.') {
-					source.advance();
 					state = 12;
-				} else if (source.current == '=') {
 					source.advance();
+				} else if (source.current == '=') {
 					state = 13;
+					source.advance();
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
 				} else {
@@ -100,10 +100,12 @@ public class Scanner {
 				}
 				break;
 			case 3:
+				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\n'};
+				
 				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current)) {
 					lexeme.append(source.current);
 					source.advance();
-				} else if (Character.isWhitespace(source.current) || source.current == ';' || source.current == '.') {
+				} else if (new String(end_chars).contains(String.valueOf(source.current))) {
 					if (lexeme.toString().equals("program"))
 						return new Token(startLine, startColumn, TokenType.PROGRAM, null);
 					else if (lexeme.toString().equals("print"))
@@ -120,23 +122,7 @@ public class Scanner {
 						return new Token(startLine, startColumn, TokenType.END, null);
 					else
 						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
-				} else if (source.current == '+')
-					return new Token(startLine, startColumn, TokenType.PLUS, null);
-				else if (source.current == '-')
-					return new Token(startLine, startColumn, TokenType.MINUS, null);
-				else if (source.current == '*')
-					return new Token(startLine, startColumn, TokenType.STAR, null);
-				else if (source.current == ';')
-					return new Token(startLine, startColumn, TokenType.SEMI, null);
-				else if (source.current == '.')
-					return new Token(startLine, startColumn, TokenType.PERIOD, null);
-				else if (source.current == '=')
-					return new Token(startLine, startColumn, TokenType.ASSIGN, null);
-				else if (source.current == '/') {
-					state = 4;
-					source.advance();
-				}
-				else {
+				} else {
 					System.err.println("Illegal character: " + source.current);
 					source.advance();
 				}
@@ -147,7 +133,7 @@ public class Scanner {
 				else if (source.current == '*')
 					state = 6;
 				else {
-					System.err.println("Illegal character: " + source.current);
+					System.err.println("You have to use // for a one-line comment.");
 					state = 0;
 				}
 				source.advance();
