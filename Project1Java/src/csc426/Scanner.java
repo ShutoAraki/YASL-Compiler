@@ -132,6 +132,10 @@ public class Scanner {
 					return new Token(startLine, startColumn, TokenType.PERIOD, null);
 				else if (source.current == '=')
 					return new Token(startLine, startColumn, TokenType.ASSIGN, null);
+				else if (source.current == '/') {
+					state = 4;
+					source.advance();
+				}
 				else {
 					System.err.println("Illegal character: " + source.current);
 					source.advance();
