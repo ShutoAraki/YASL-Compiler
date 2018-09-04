@@ -11,6 +11,7 @@ import java.io.Reader;
  * simply a StringReader).
  * 
  * @author bhoward
+ * @student ShutoAraki
  */
 public class Scanner {
 	/**
@@ -34,7 +35,6 @@ public class Scanner {
 		StringBuilder lexeme = new StringBuilder();
 		int startLine = source.line;
 		int startColumn = source.column;
-		//boolean end_condition = (source.atEOF || Character.isWhitespace(source.current) || source.current == '\n' || source.current == '.' || source.current == ';');
 		
 		while (true) {
 			switch (state) {
@@ -53,13 +53,13 @@ public class Scanner {
 					lexeme.append(source.current);
 					source.advance();
 					state = 2;
-				} else if (Character.isAlphabetic(source.current)){
+				} else if (Character.isAlphabetic(source.current)) {
 					startLine = source.line;
 					startColumn = source.column;
 					lexeme.append(source.current);
 					source.advance();
 					state = 3;
-				} else if (source.current == '/') {
+				} else if (source.current == '/') { // For comments
 					state = 4;
 					source.advance();
 				} else if (source.current == '+') {
@@ -83,7 +83,7 @@ public class Scanner {
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
 				} else {
-					System.err.println("Illegal character: " + source.current);
+					System.err.println("Unexpected character " + source.current + " was skipped.");
 					source.advance();
 				}
 				break;
@@ -102,7 +102,7 @@ public class Scanner {
 			case 3:
 				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\n'};
 				
-				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current)) {
+				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current) || source.current == '_') {
 					lexeme.append(source.current);
 					source.advance();
 				} else if (new String(end_chars).contains(String.valueOf(source.current))) {
@@ -123,7 +123,7 @@ public class Scanner {
 					else
 						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
 				} else {
-					System.err.println("Illegal character: " + source.current);
+					System.err.println("Unexpected character " + source.current + " was skipped.");
 					source.advance();
 				}
 				break;
@@ -167,6 +167,8 @@ public class Scanner {
 				return new Token(startLine, startColumn, TokenType.PERIOD, null);
 			case 13:
 				return new Token(startLine, startColumn, TokenType.ASSIGN, null);
+			default:
+				; // This part will never be reached. Just for the sake of syntax
 			}
 		}
 	}

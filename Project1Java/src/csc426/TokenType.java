@@ -4,6 +4,7 @@ package csc426;
  * Enumeration of the different kinds of tokens in the YASL subset.
  * 
  * @author bhoward
+ * @student ShutoAraki
  */
 public enum TokenType {
 	NUM, // numeric literal
@@ -22,5 +23,4 @@ public enum TokenType {
 	PRINT, // print keyword
 	ID, // identifier
 	EOF // end-of-file
-	// TODO add more token types here
 }
