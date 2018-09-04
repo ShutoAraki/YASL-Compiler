@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 public class Project1 {
 	public static void main(String[] args) throws IOException {
 		Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-
+		
 		Token token;
 		do {
 			token = scanner.next();
