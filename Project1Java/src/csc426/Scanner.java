@@ -168,7 +168,8 @@ public class Scanner {
 			case 13:
 				return new Token(startLine, startColumn, TokenType.ASSIGN, null);
 			default:
-				; // This part will never be reached. Just for the sake of syntax
+				// This part will NOT be executed. The error will be thrown just in case.
+				throw new RuntimeException("Unreachable. Something is wrong with the lexer.");
 			}
 		}
 	}
