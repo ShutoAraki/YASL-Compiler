@@ -85,7 +85,7 @@ public class Scanner {
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
 				} else {
-					System.err.println("Unexpected character " + source.current + " was skipped.");
+					System.err.println("Unexpected character '" + source.current + "' at line " + source.line + " column " + source.column + " was skipped.");
 					source.advance();
 				}
 				break;
