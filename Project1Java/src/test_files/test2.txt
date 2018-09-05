@@ -1,0 +1,4 @@
+/* This comment should be ignored
+
+Then after this, it should produce an error message.
+
