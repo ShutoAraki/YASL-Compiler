@@ -1,3 +1,12 @@
+val x = 8;
+val y = 7;
+
+print x + y
+
+8&ji // This should produce an error message and skip
+'()" // More errors!
+jfia_jfia // But this is okay because I like underscores
+
 /* This comment should be ignored
 
 Then after this, it should produce an error message.
