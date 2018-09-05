@@ -16,7 +16,7 @@ public class Project1 {
 		//Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
 		
 		try {
-			Scanner scanner = new Scanner(new FileReader("src/test_files/test1.txt"));
+			Scanner scanner = new Scanner(new FileReader("src/test_files/test2.txt"));
 			
 			Token token;
 			do {
