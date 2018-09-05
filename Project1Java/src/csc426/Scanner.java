@@ -10,6 +10,8 @@ import java.io.Reader;
  * around a FileReader or InputStreamReader (though for testing it may also be
  * simply a StringReader).
  * 
+ * The documentation is available on README.md written by ShutoAraki.
+ * 
  * @author bhoward
  * @student ShutoAraki
  */
