@@ -123,20 +123,23 @@ public class Scanner {
 					else
 						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
 				} else {
-					System.err.println("Unexpected character " + source.current + " was skipped.");
+					System.err.println("Unexpected character '" + source.current + "' at line " + source.line + " column " + source.column + " was skipped.");
 					source.advance();
 				}
 				break;
 			case 4:
-				if (source.current == '/')
+				if (source.current == '/') {
 					state = 5;
-				else if (source.current == '*')
+					source.advance();
+				}
+				else if (source.current == '*') {
 					state = 6;
+					source.advance();
+				}
 				else {
 					System.err.println("You have to use // for a one-line comment.");
 					state = 0;
 				}
-				source.advance();
 				break;
 			case 5:
 				if (source.current == '\n')
@@ -146,11 +149,15 @@ public class Scanner {
 			case 6:
 				if (source.current == '*')
 					state = 7;
+				else if (source.atEOF)
+					System.err.println("Comment has to be closed with '*/' before EOF");
 				source.advance();
 				break;
 			case 7:
 				if (source.current == '/')
 					state = 0;
+				else if (source.atEOF)
+					System.err.println("Comment has to be closed with '*/' before EOF");
 				else
 					state = 6;
 				source.advance();
