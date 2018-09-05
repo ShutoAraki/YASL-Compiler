@@ -28,6 +28,6 @@ public class Project1 {
 		} catch (Exception e) {
 			System.err.println(e);
 		}
-		
+
 	}
 }
