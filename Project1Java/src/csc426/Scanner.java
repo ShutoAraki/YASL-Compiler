@@ -65,21 +65,33 @@ public class Scanner {
 					state = 4;
 					source.advance();
 				} else if (source.current == '+') {
+					startLine = source.line;
+					startColumn = source.column;
 					state = 8;
 					source.advance();
 				} else if (source.current == '-') {
+					startLine = source.line;
+					startColumn = source.column;
 					state = 9;
 					source.advance();
 				} else if (source.current == '*') {
+					startLine = source.line;
+					startColumn = source.column;
 					state = 10;
 					source.advance();
 				} else if (source.current == ';') {
+					startLine = source.line;
+					startColumn = source.column;
 					state = 11;
 					source.advance();
 				} else if (source.current == '.') {
+					startLine = source.line;
+					startColumn = source.column;
 					state = 12;
 					source.advance();
 				} else if (source.current == '=') {
+					startLine = source.line;
+					startColumn = source.column;
 					state = 13;
 					source.advance();
 				} else if (Character.isWhitespace(source.current)) {
