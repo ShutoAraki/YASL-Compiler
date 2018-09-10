@@ -102,7 +102,7 @@ public class Scanner {
 				}
 				break;
 			case 3:
-				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\n'};
+				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\t','\n'};
 				
 				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current) || source.current == '_') {
 					lexeme.append(source.current);
