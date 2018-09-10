@@ -2,6 +2,43 @@
 This repository is created for CSC426: Compilers class at DePauw University taught by Dr. Brian Howard in Fall 2018.
 YASL (Yet Another Simple Language), a simplified programming language created for pedagogical purposes, will be compiled. The textbook used in this class is available [here](http://hjemmesider.diku.dk/~torbenm/Basics/basics_lulu2.pdf) for free. This documentation will describe the steps toward building a compiler from scratch.
 
+<b>YASL has the following grammar rules.</b>
+```
+<Program> -->
+  PROGRAM ID SEMI <Block> PERIOD
+
+<Block> -->
+  <ConstDecls> BEGIN <Stmts> END
+
+<ConstDecls> -->
+  <ConstDecl> <ConstDecls>
+|
+
+<ConstDecl> --> CONST ID ASSIGN NUM SEMI
+
+<Stmts> -->
+  <Stmt> SEMI <Stmts>
+| <Stmt>
+
+<Stmt> -->
+  PRINT <Expr>
+
+<Expr> -->
+  <Expr> PLUS <Term>
+| <Expr> MINUS <Term>
+| <Term>
+
+<Term> -->
+  <Term> STAR <Factor>
+| <Term> DIV <Factor>
+| <Term> MOD <Factor>
+| <Factor>
+
+<Factor> -->
+  NUM
+| ID
+```
+
 ## Lexical Analysis (Project 1)
 "This is the initial part of reading and analysing the program text: The text is read and divided into tokens, each of which corresponds to a symbol in the programming language, e.g., a variable name, keyword or number" (Ægidius Mogensen, 2).
 
