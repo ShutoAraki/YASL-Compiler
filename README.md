@@ -14,7 +14,7 @@ YASL (Yet Another Simple Language), a simplified programming language created fo
   <ConstDecl> <ConstDecls>
 |
 
-<ConstDecl> --> CONST ID ASSIGN NUM SEMI
+<ConstDecl> --> VAL ID ASSIGN NUM SEMI
 
 <Stmts> -->
   <Stmt> SEMI <Stmts>
