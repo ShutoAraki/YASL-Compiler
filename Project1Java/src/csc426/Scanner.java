@@ -172,6 +172,8 @@ public class Scanner {
 			case 7:
 				if (source.current == '/')
 					state = 0;
+				else if (source.current == '*')
+					state = 7;
 				else if (source.atEOF) {
 					System.err.println("Comment has to be closed with '*/' before EOF");
 					state = 0;
