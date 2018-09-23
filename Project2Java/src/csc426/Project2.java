@@ -6,19 +6,14 @@ import java.io.InputStreamReader;
 import java.io.FileReader;
 
 /**
- * Main class for Project 1 -- Scanner for a Subset of YASL (Fall 2015). Scans
- * tokens from standard input and prints the token stream to standard output.
+ * Main class for Project 2
  * 
- * @author bhoward
+ * @author ShutoAraki
  */
 public class Project2 {
 	public static void main(String[] args) throws IOException {
 		Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
- 		Token token;
-		do {
-			token = scanner.next();
-			System.out.println(token);
-		} while (token.type != TokenType.EOF);
- 		scanner.close();
+		Parser parser = new Parser(scanner);
+ 		parser.parseProgram();
 	}
 }
