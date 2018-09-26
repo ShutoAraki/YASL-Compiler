@@ -3,6 +3,19 @@ package csc426;
 import java.util.HashMap;
 import java.util.Stack;
 
+/**
+ * A Parser for a subset of YASL. It can only parse variable declarations 
+ * and print statements given that the statements are grammatical.
+ * The runParser() method prints out expression in print statements in postfix
+ * order. The parser looks for variable declarations and print statements.
+ * Print statements have to start with a BEGIN token and end with an END token, 
+ * separated by a SEMI token for each print statement.
+ * 
+ * @version 09/26/2018
+ * @author ShutoAraki
+ *
+ */
+
 public class Parser {
 	
 	private Scanner scanner;
@@ -60,9 +73,14 @@ public class Parser {
 		
 	}
 	
-	/*
+	/**
+	 * This method parse a print statement using an operator stack and precedence.
+	 * 
 	 * precondition: The print statement is grammatically correct.
 	 * This method does not take care of any ungrammatical statements.
+	 * It throws an exception when an identifier is not declared.
+	 * 
+	 * @throws Exception
 	 */
 	public void parseStmtStack() throws Exception {
 		Stack<Token> opStack = new Stack<Token>();

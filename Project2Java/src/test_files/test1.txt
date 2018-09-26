@@ -4,7 +4,7 @@ val x = 6;
 val y = 7;
 begin
   print x * y;
-  print 12 div y * y + 12 mod y - 12;
+  print 12 div y * y + 12 mod y - 12
 end.
 
 print 4 * z div 0 // This should be ignored.
