@@ -1,4 +1,9 @@
-/* This comment should be ignored
-
-Then after this, it should produce an error message.
-
+program demo3;
+/* Declare some constants */
+val x = 6;
+val y = 7;
+val z = 7;
+begin
+  print x * z; // should print 42
+  print 12 div y * y + 12 mod yes - 12 // should print an error for undeclared identifier
+end.

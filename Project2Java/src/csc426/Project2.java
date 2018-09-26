@@ -11,9 +11,15 @@ import java.io.FileReader;
  * @author ShutoAraki
  */
 public class Project2 {
-	public static void main(String[] args) throws IOException {
-		Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-		Parser parser = new Parser(scanner);
- 		parser.parseProgram();
+	public static void main(String[] args) {
+		
+		try {
+			// Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+			Scanner scanner = new Scanner(new FileReader("src/test_files/test1.txt"));
+			Parser parser = new Parser(scanner);
+	 		parser.runParser();
+		} catch (Exception e) {
+			System.err.println(e);
+		}
 	}
 }
