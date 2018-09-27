@@ -1,0 +1,9 @@
+program demo3;
+/* 
+Not declare any constants 
+But it should be fine.
+*/
+begin
+  print 6 * 7;
+  print 12 div 2 * 7 + 12 mod 2 - 1
+end.
