@@ -14,8 +14,8 @@ public class Project2 {
 	public static void main(String[] args) {
 		
 		try {
-			// Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-			Scanner scanner = new Scanner(new FileReader("src/test_files/test1.txt"));
+			Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+			//Scanner scanner = new Scanner(new FileReader("src/test_files/test3.txt"));
 			Parser parser = new Parser(scanner);
 	 		parser.runParser();
 		} catch (Exception e) {

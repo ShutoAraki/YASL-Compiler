@@ -40,7 +40,7 @@ public class Parser {
 	public void runParser() throws Exception {
 		
 		// Skip whatever is before val declaration
-		while (token.type != TokenType.VAL) {
+		while (token.type != TokenType.VAL && token.type != TokenType.BEGIN) {
 			token = scanner.next();
 		}
 		// parseValDecls part
@@ -52,10 +52,6 @@ public class Parser {
 			String value = token.lexeme.toString();
 			ids.put(key, value);
 			checkToken(TokenType.SEMI);
-			token = scanner.next();
-		}
-		// Skip whatever is before begin clause
-		while (token.type != TokenType.BEGIN) {
 			token = scanner.next();
 		}
 		token = scanner.next();
