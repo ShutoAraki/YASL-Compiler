@@ -184,6 +184,8 @@ public class Scanner {
 						return new Token(startLine, startColumn, TokenType.TRUE, null);
 					else if (lexeme.toString().equals("false"))
 						return new Token(startLine, startColumn, TokenType.FALSE, null);
+					else if (lexeme.toString().equals("let"))
+						return new Token(startLine, startColumn, TokenType.LET, null);
 					else
 						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
 				} else {

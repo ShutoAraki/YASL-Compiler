@@ -26,21 +26,22 @@ public enum TokenType {
 	BOOL, // boolean
 	VOID, 
 	FUN, // function keyword
-	IF, 
-	THEN,
-	ELSE, 
-	WHILE, 
-	DO, 
-	INPUT, 
-	AND, 
-	OR, 
-	NOT, 
-	TRUE, 
-	FALSE,
-	COLON, 
-	LPAREN, 
-	RPAREN, 
-	COMMA,
+	IF, // if
+	THEN, // then
+	ELSE, // else
+	WHILE, // while
+	DO, // do
+	INPUT, // input
+	AND, // and
+	OR, // or
+	NOT, // not
+	TRUE, // true
+	FALSE, // false
+	COLON, // :
+	LPAREN, // (
+	RPAREN, // )
+	COMMA, //,
+	LET, // let keyword
 	ID, // identifier
 	EOF // end-of-file
 }
