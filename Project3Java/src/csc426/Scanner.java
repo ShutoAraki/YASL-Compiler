@@ -94,6 +94,26 @@ public class Scanner {
 					startColumn = source.column;
 					state = 13;
 					source.advance();
+				} else if (source.current == ':') {
+					startLine = source.line;
+					startColumn = source.column;
+					state = 14;
+					source.advance();
+				} else if (source.current == '(') {
+					startLine = source.line;
+					startColumn = source.column;
+					state = 15;
+					source.advance();
+				} else if (source.current == ')') {
+					startLine = source.line;
+					startColumn = source.column;
+					state = 16;
+					source.advance();
+				} else if (source.current == ',') {
+					startLine = source.line;
+					startColumn = source.column;
+					state = 17;
+					source.advance();
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
 				} else {
@@ -114,7 +134,7 @@ public class Scanner {
 				}
 				break;
 			case 3:
-				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\t','\n'};
+				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\t', '\n', ':', '(', ')', ','};
 				
 				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current) || source.current == '_') {
 					lexeme.append(source.current);
@@ -134,6 +154,36 @@ public class Scanner {
 						return new Token(startLine, startColumn, TokenType.BEGIN, null);
 					else if (lexeme.toString().equals("end"))
 						return new Token(startLine, startColumn, TokenType.END, null);
+					else if (lexeme.toString().equals("var"))
+						return new Token(startLine, startColumn, TokenType.VAR, null);
+					else if (lexeme.toString().equals("int"))
+						return new Token(startLine, startColumn, TokenType.INT, null);
+					else if (lexeme.toString().equals("bool"))
+						return new Token(startLine, startColumn, TokenType.BOOL, null);
+					else if (lexeme.toString().equals("void"))
+						return new Token(startLine, startColumn, TokenType.VOID, null);
+					else if (lexeme.toString().equals("fun"))
+						return new Token(startLine, startColumn, TokenType.FUN, null);
+					else if (lexeme.toString().equals("if"))
+						return new Token(startLine, startColumn, TokenType.IF, null);
+					else if (lexeme.toString().equals("then"))
+						return new Token(startLine, startColumn, TokenType.THEN, null);
+					else if (lexeme.toString().equals("else"))
+						return new Token(startLine, startColumn, TokenType.ELSE, null);
+					else if (lexeme.toString().equals("while"))
+						return new Token(startLine, startColumn, TokenType.WHILE, null);
+					else if (lexeme.toString().equals("do"))
+						return new Token(startLine, startColumn, TokenType.DO, null);
+					else if (lexeme.toString().equals("input"))
+						return new Token(startLine, startColumn, TokenType.INPUT, null);
+					else if (lexeme.toString().equals("and"))
+						return new Token(startLine, startColumn, TokenType.AND, null);
+					else if (lexeme.toString().equals("or"))
+						return new Token(startLine, startColumn, TokenType.OR, null);
+					else if (lexeme.toString().equals("true"))
+						return new Token(startLine, startColumn, TokenType.TRUE, null);
+					else if (lexeme.toString().equals("false"))
+						return new Token(startLine, startColumn, TokenType.FALSE, null);
 					else
 						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
 				} else {
@@ -193,6 +243,14 @@ public class Scanner {
 				return new Token(startLine, startColumn, TokenType.PERIOD, null);
 			case 13:
 				return new Token(startLine, startColumn, TokenType.ASSIGN, null);
+			case 14:
+				return new Token(startLine, startColumn, TokenType.COLON, null);
+			case 15:
+				return new Token(startLine, startColumn, TokenType.LPAREN, null);
+			case 16:
+				return new Token(startLine, startColumn, TokenType.RPAREN, null);
+			case 17:
+				return new Token(startLine, startColumn, TokenType.COMMA, null);
 			default:
 				// This part will NOT be executed. The error will be thrown just in case.
 				throw new RuntimeException("Unreachable. Something is wrong with the lexer.");
