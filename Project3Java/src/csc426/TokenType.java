@@ -21,22 +21,22 @@ public enum TokenType {
 	BEGIN, // begin keyword
 	END, // end keyword
 	PRINT, // print keyword
-	VAR, // variable
-	INT, // integer
-	BOOL, // boolean
-	VOID, 
+	VAR, // var keyword
+	INT, // int keyword
+	BOOL, // bool keyword
+	VOID, // void keyword
 	FUN, // function keyword
-	IF, // if
-	THEN, // then
-	ELSE, // else
-	WHILE, // while
-	DO, // do
-	INPUT, // input
-	AND, // and
-	OR, // or
-	NOT, // not
-	TRUE, // true
-	FALSE, // false
+	IF, // if keyword
+	THEN, // then keyword
+	ELSE, // else keyword
+	WHILE, // while keyword
+	DO, // do keyword
+	INPUT, // input keyword
+	AND, // and keyword
+	OR, // or keyword
+	NOT, // not keyword
+	TRUE, // true keyword
+	FALSE, // false keyword
 	COLON, // :
 	LPAREN, // (
 	RPAREN, // )
