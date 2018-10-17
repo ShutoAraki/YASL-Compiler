@@ -41,6 +41,12 @@ public enum TokenType {
 	LPAREN, // (
 	RPAREN, // )
 	COMMA, //,
+	LE, // <=
+	LT, // <
+	GE, // >=
+	GT, // >
+	NE, // <>
+	EQ, // ==
 	LET, // let keyword
 	ID, // identifier
 	EOF // end-of-file

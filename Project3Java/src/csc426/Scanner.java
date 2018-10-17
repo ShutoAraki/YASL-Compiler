@@ -2,6 +2,8 @@ package csc426;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A Lexical Analyzer for a subset of YASL. Uses a (Mealy) state machine to
@@ -11,6 +13,12 @@ import java.io.Reader;
  * simply a StringReader).
  * 
  * The documentation is available on README.md written by ShutoAraki.
+ * 
+ * NOTES:
+ * 		For additional keywords, just add String:TokenType pairs in keywords HashMap.
+ * 		For additional nonalphabetic tokens, add String:TokenType pairs in opsAndPunct
+ * 		HashMap and end_chars list in state 3.
+ * 		For more complicated modifications, create new states in Finite State Transducer.
  * 
  * @author bhoward
  * @student ShutoAraki
@@ -23,6 +31,44 @@ public class Scanner {
 	 */
 	public Scanner(Reader in) {
 		source = new Source(in);
+		
+		keywords = new HashMap<>();
+		keywords.put("program", TokenType.PROGRAM);
+		keywords.put("print", TokenType.PRINT);
+		keywords.put("mod", TokenType.MOD);
+		keywords.put("div", TokenType.DIV);
+		keywords.put("val", TokenType.VAL);
+		keywords.put("begin", TokenType.BEGIN);
+		keywords.put("end", TokenType.END);
+		keywords.put("var", TokenType.VAR);
+		keywords.put("int", TokenType.INT);
+		keywords.put("bool", TokenType.BOOL);
+		keywords.put("void", TokenType.VOID);
+		keywords.put("fun", TokenType.FUN);
+		keywords.put("if", TokenType.IF);
+		keywords.put("then", TokenType.THEN);
+		keywords.put("else", TokenType.ELSE);
+		keywords.put("while", TokenType.WHILE);
+		keywords.put("do", TokenType.DO);
+		keywords.put("input", TokenType.INPUT);
+		keywords.put("and", TokenType.AND);
+		keywords.put("or", TokenType.OR);
+		keywords.put("true", TokenType.TRUE);
+		keywords.put("false", TokenType.FALSE);
+		keywords.put("let", TokenType.LET);
+
+		opsAndPunct = new HashMap<>();
+		opsAndPunct.put("+", TokenType.PLUS);
+		opsAndPunct.put("-", TokenType.MINUS);
+		opsAndPunct.put("*", TokenType.STAR);
+		opsAndPunct.put(";", TokenType.SEMI);
+		opsAndPunct.put(".", TokenType.PERIOD);
+		opsAndPunct.put("=", TokenType.ASSIGN);
+		opsAndPunct.put(":", TokenType.COLON);
+		opsAndPunct.put("(", TokenType.LPAREN);
+		opsAndPunct.put(")", TokenType.RPAREN);
+		opsAndPunct.put(",", TokenType.COMMA);
+		
 	}
 
 	/**
@@ -61,58 +107,25 @@ public class Scanner {
 					lexeme.append(source.current);
 					source.advance();
 					state = 3;
-				} else if (source.current == '/') { // For comments
+			    // States 4-7 deal with comments
+				} else if (source.current == '/') {
 					state = 4;
 					source.advance();
-				} else if (source.current == '+') {
-					startLine = source.line;
-					startColumn = source.column;
+				// State 8 deals with operators and punctuation
+				} else if ("+-*;.=:(),".contains(String.valueOf(source.current))) {
 					state = 8;
+					lexeme.append(source.current);
 					source.advance();
-				} else if (source.current == '-') {
+				// State 9 deals with <= and <> as well as <
+				} else if (source.current == '<') {
 					startLine = source.line;
 					startColumn = source.column;
 					state = 9;
 					source.advance();
-				} else if (source.current == '*') {
+				} else if (source.current == '>') {
 					startLine = source.line;
 					startColumn = source.column;
 					state = 10;
-					source.advance();
-				} else if (source.current == ';') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 11;
-					source.advance();
-				} else if (source.current == '.') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 12;
-					source.advance();
-				} else if (source.current == '=') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 13;
-					source.advance();
-				} else if (source.current == ':') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 14;
-					source.advance();
-				} else if (source.current == '(') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 15;
-					source.advance();
-				} else if (source.current == ')') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 16;
-					source.advance();
-				} else if (source.current == ',') {
-					startLine = source.line;
-					startColumn = source.column;
-					state = 17;
 					source.advance();
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
@@ -134,60 +147,22 @@ public class Scanner {
 				}
 				break;
 			case 3:
-				char[] end_chars = {'+', '-', '*', ';', '.', '=', '/', ' ', '\t', '\n', ':', '(', ')', ','};
+				// a list of legal characters to signal the end of lexeme
+				String end_chars = "+-*;.=/ \t\n:(),<>";
 				
+				// Alphabets, digits, and underscores are parts of legal identifier
 				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current) || source.current == '_') {
 					lexeme.append(source.current);
 					source.advance();
-				} else if (new String(end_chars).contains(String.valueOf(source.current))) {
-					if (lexeme.toString().equals("program"))
-						return new Token(startLine, startColumn, TokenType.PROGRAM, null);
-					else if (lexeme.toString().equals("print"))
-						return new Token(startLine, startColumn, TokenType.PRINT, null);
-					else if (lexeme.toString().equals("mod"))
-						return new Token(startLine, startColumn, TokenType.MOD, null);
-					else if (lexeme.toString().equals("div"))
-						return new Token(startLine, startColumn, TokenType.DIV, null);
-					else if (lexeme.toString().equals("val"))
-						return new Token(startLine, startColumn, TokenType.VAL, null);
-					else if (lexeme.toString().equals("begin"))
-						return new Token(startLine, startColumn, TokenType.BEGIN, null);
-					else if (lexeme.toString().equals("end"))
-						return new Token(startLine, startColumn, TokenType.END, null);
-					else if (lexeme.toString().equals("var"))
-						return new Token(startLine, startColumn, TokenType.VAR, null);
-					else if (lexeme.toString().equals("int"))
-						return new Token(startLine, startColumn, TokenType.INT, null);
-					else if (lexeme.toString().equals("bool"))
-						return new Token(startLine, startColumn, TokenType.BOOL, null);
-					else if (lexeme.toString().equals("void"))
-						return new Token(startLine, startColumn, TokenType.VOID, null);
-					else if (lexeme.toString().equals("fun"))
-						return new Token(startLine, startColumn, TokenType.FUN, null);
-					else if (lexeme.toString().equals("if"))
-						return new Token(startLine, startColumn, TokenType.IF, null);
-					else if (lexeme.toString().equals("then"))
-						return new Token(startLine, startColumn, TokenType.THEN, null);
-					else if (lexeme.toString().equals("else"))
-						return new Token(startLine, startColumn, TokenType.ELSE, null);
-					else if (lexeme.toString().equals("while"))
-						return new Token(startLine, startColumn, TokenType.WHILE, null);
-					else if (lexeme.toString().equals("do"))
-						return new Token(startLine, startColumn, TokenType.DO, null);
-					else if (lexeme.toString().equals("input"))
-						return new Token(startLine, startColumn, TokenType.INPUT, null);
-					else if (lexeme.toString().equals("and"))
-						return new Token(startLine, startColumn, TokenType.AND, null);
-					else if (lexeme.toString().equals("or"))
-						return new Token(startLine, startColumn, TokenType.OR, null);
-					else if (lexeme.toString().equals("true"))
-						return new Token(startLine, startColumn, TokenType.TRUE, null);
-					else if (lexeme.toString().equals("false"))
-						return new Token(startLine, startColumn, TokenType.FALSE, null);
-					else if (lexeme.toString().equals("let"))
-						return new Token(startLine, startColumn, TokenType.LET, null);
+				// This case is the end of token
+				} else if (end_chars.contains(String.valueOf(source.current))) {
+					String lex = lexeme.toString();
+					
+					if (keywords.containsKey(lex))
+						return new Token(startLine, startColumn, keywords.get(lex), null);
 					else
-						return new Token(startLine, startColumn, TokenType.ID, lexeme.toString());	
+						return new Token(startLine, startColumn, TokenType.ID, lex);
+				// If there is a illegal character, print an error message
 				} else {
 					System.err.println("Unexpected character '" + source.current + "' at line " + source.line + " column " + source.column + " was skipped.");
 					source.advance();
@@ -234,25 +209,25 @@ public class Scanner {
 				source.advance();
 				break;
 			case 8:
-				return new Token(startLine, startColumn, TokenType.PLUS, null);
+				String lex = lexeme.toString();
+				return new Token(startLine, startColumn, opsAndPunct.get(lex), null);
 			case 9:
-				return new Token(startLine, startColumn, TokenType.MINUS, null);
+				if (source.current == '=') {
+					source.advance();
+					return new Token(startLine, startColumn, TokenType.LE, null);
+				}
+				else if (source.current == '>') {
+					source.advance();
+					return new Token(startLine, startColumn, TokenType.NE, null);
+				}
+				else
+					return new Token(startLine, startColumn, TokenType.LT, null);
 			case 10:
-				return new Token(startLine, startColumn, TokenType.STAR, null);
-			case 11:
-				return new Token(startLine, startColumn, TokenType.SEMI, null);
-			case 12:
-				return new Token(startLine, startColumn, TokenType.PERIOD, null);
-			case 13:
-				return new Token(startLine, startColumn, TokenType.ASSIGN, null);
-			case 14:
-				return new Token(startLine, startColumn, TokenType.COLON, null);
-			case 15:
-				return new Token(startLine, startColumn, TokenType.LPAREN, null);
-			case 16:
-				return new Token(startLine, startColumn, TokenType.RPAREN, null);
-			case 17:
-				return new Token(startLine, startColumn, TokenType.COMMA, null);
+				if (source.current == '=') {
+					source.advance();
+					return new Token(startLine, startColumn, TokenType.GE, null);
+				} else 
+					return new Token(startLine, startColumn, TokenType.GT, null);
 			default:
 				// This part will NOT be executed. The error will be thrown just in case.
 				throw new RuntimeException("Unreachable. Something is wrong with the lexer.");
@@ -270,4 +245,6 @@ public class Scanner {
 	}
 
 	private Source source;
+	private Map<String, TokenType> keywords;
+	private Map<String, TokenType> opsAndPunct;
 }
