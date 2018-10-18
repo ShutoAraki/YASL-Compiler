@@ -1,10 +1,19 @@
 package csc426.ast;
 
-public class VarDecls {
+import java.util.List;
 
-	public void display(String indentation) {
-		// TODO Auto-generated method stub
-		
+public class VarDecls {
+	
+	private List<VarDecl> vars;
+
+	public VarDecls(List<VarDecl> vars) {
+		this.vars = vars;
 	}
 
+	public void display(String indentation) {
+		for (VarDecl var : vars) {
+			var.display(indentation + "  ");
+		}
+	}
+	
 }

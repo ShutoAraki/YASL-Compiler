@@ -60,11 +60,13 @@ public class Parser {
 	}
 	
 	/*
-	 * <Block> --> <ValDecls>                      FIRST = VAL
+	 * <Block> --> <ValDecls> <VarDecls> <FunDecls> <Stmt>     FIRST = VAL, VAR, FUN, FIRST(Stmt)
 	 */
 	public Block parseBlock() {
 		ValDecls vs = parseValDecls();
-		return new Block(vs);
+		VarDecls rs = parseVarDecls();
+		
+		return new Block(vs, rs);
 	}
 	
 	/*
@@ -72,14 +74,11 @@ public class Parser {
 	 *              | ε							   FOLLOW = VAR
 	 */
 	public ValDecls parseValDecls() {
-		if (check(TokenType.VAL)) {
-			List<ValDecl> vdList = new ArrayList<ValDecl>();
-			while (check(TokenType.VAL)) {
-				vdList.add(parseValDecl());
-			}
-			return new ValDecls(vdList);
+		List<ValDecl> vdList = new ArrayList<ValDecl>();
+		while (check(TokenType.VAL)) {
+			vdList.add(parseValDecl());
 		}
-		return new ValDecls(new ArrayList<ValDecl>());
+		return new ValDecls(vdList);
 	}
 	
 	/*
@@ -106,6 +105,50 @@ public class Parser {
 			return -1;
 		}
 		return 1;
+	}
+	
+	/*
+	 * <VarDecls> --> <VarDecl> <VarDecls>         FIRST = VAR
+	 *              | ε                            FOLLOW = FUN, FIRST(Stmt)
+	 */
+	public VarDecls parseVarDecls() {
+		List<VarDecl> vrList = new ArrayList<VarDecl>();
+		while (check(TokenType.VAR)) {
+			vrList.add(parseVarDecl());
+		}
+		return new VarDecls(vrList);
+	}
+	
+	/*
+	 * <VarDecl> --> var id : <Type> ;             FIRST = VAR
+	 */
+	public VarDecl parseVarDecl() {
+		match(TokenType.VAR);
+		Token id = match(TokenType.ID);
+		match(TokenType.COLON);
+		Type type = parseType();
+		match(TokenType.SEMI);
+		return new VarDecl(id.lexeme, type);
+	}
+	
+	// Better implementation? Too much redundant code
+	public Type parseType() {
+		
+		if (check(TokenType.INT)) {
+			match(TokenType.INT);
+			return new Type(TokenType.INT);
+		} else if (check(TokenType.BOOL)) {
+			match(TokenType.BOOL);
+			return new Type(TokenType.BOOL);
+		} else if (check(TokenType.VOID)) {
+			match(TokenType.VOID);
+			return new Type(TokenType.VOID);
+		} else {
+			System.err.println("Invalid var type: Var type has to be INT, BOOL, or VOID");
+			System.exit(1);
+		}
+		
+		return null; // Unreachable
 	}
 
 	private Scanner scanner;
