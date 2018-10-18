@@ -49,5 +49,6 @@ public enum TokenType {
 	EQ, // ==
 	LET, // let keyword
 	ID, // identifier
+	STRING, // String literal
 	EOF // end-of-file
 }

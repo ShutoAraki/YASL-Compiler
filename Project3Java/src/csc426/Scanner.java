@@ -89,18 +89,21 @@ public class Scanner {
 			case 0:
 				if (source.atEOF) {
 					return new Token(source.line, source.column, TokenType.EOF, null);
+				// State 1 deals with the NUM 0
 				} else if (source.current == '0') {
 					startLine = source.line;
 					startColumn = source.column;
 					lexeme.append(source.current);
 					source.advance();
 					state = 1;
+				// State 2 deals with all the other NUMs
 				} else if (Character.isDigit(source.current)) {
 					startLine = source.line;
 					startColumn = source.column;
 					lexeme.append(source.current);
 					source.advance();
 					state = 2;
+				// State 3 deals with keywords and identifiers
 				} else if (Character.isAlphabetic(source.current)) {
 					startLine = source.line;
 					startColumn = source.column;
@@ -122,10 +125,17 @@ public class Scanner {
 					startColumn = source.column;
 					state = 9;
 					source.advance();
+				// State 10 deals with >= and >
 				} else if (source.current == '>') {
 					startLine = source.line;
 					startColumn = source.column;
 					state = 10;
+					source.advance();
+				// States 11-12 deals with string literal
+				} else if (source.current == '"') {
+					startLine = source.line;
+					startColumn = source.column;
+					state = 11;
 					source.advance();
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
@@ -228,6 +238,25 @@ public class Scanner {
 					return new Token(startLine, startColumn, TokenType.GE, null);
 				} else 
 					return new Token(startLine, startColumn, TokenType.GT, null);
+			case 11:
+				if (source.current == '"')
+					state = 12;
+				else if (source.current == '\n')
+					System.err.println("String literal has to end with \"");
+					// System.exit(1); // Lexical error does not exit the program?
+				else
+					lexeme.append(source.current);
+				source.advance();
+				break;
+			case 12:
+				if (source.current == '"') {
+					state = 11;
+					// Two quotation marks ("") is considered a " in the string literal
+					lexeme.append('"');
+					source.advance();
+				} else 
+					return new Token(startLine, startColumn, TokenType.STRING, lexeme.toString());
+				break;
 			default:
 				// This part will NOT be executed. The error will be thrown just in case.
 				throw new RuntimeException("Unreachable. Something is wrong with the lexer.");
