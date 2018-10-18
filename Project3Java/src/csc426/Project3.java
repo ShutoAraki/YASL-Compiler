@@ -20,7 +20,7 @@ public class Project3 {
 	public static void main(String[] args) throws IOException {
 		
 //		Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-		Scanner scanner = new Scanner(new FileReader("src/test_files/test1.txt"));
+		Scanner scanner = new Scanner(new FileReader("src/test_files/test2.txt"));
 		Parser parser = new Parser(scanner);
 		// This Program object is the root of the AST
 		Program program = parser.parseProgram();

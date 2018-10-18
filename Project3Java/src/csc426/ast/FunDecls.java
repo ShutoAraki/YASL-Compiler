@@ -1,9 +1,20 @@
 package csc426.ast;
 
+import java.util.List;
+
 public class FunDecls {
 
-	public void display(String indentation) {
-		// TODO Auto-generated method stub
+	private List<FunDecl> funs;
+	
+	public FunDecls(List<FunDecl> funs) {
+		this.funs = funs;
 	}
+	
+	public void display(String indentation) {
+		for (FunDecl fun : funs) {
+			fun.display(indentation + "  ");
+		}
+	}
+
 
 }

@@ -12,7 +12,7 @@ public class VarDecls {
 
 	public void display(String indentation) {
 		for (VarDecl var : vars) {
-			var.display(indentation + "  ");
+			var.display(indentation);
 		}
 	}
 	

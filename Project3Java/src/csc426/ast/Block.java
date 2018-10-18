@@ -4,14 +4,14 @@ public class Block {
 	
 	private ValDecls valDecls;
 	private VarDecls varDecls;
-//	private FunDecls funDecls;
+	private FunDecls funDecls; 
 //	private Stmt stmt;
 	
 //	public Block(ValDecls valDecls, VarDecls varDecls, FunDecls funDecls, Stmt stmt) {
-	public Block(ValDecls valDecls, VarDecls varDecls) {
+	public Block(ValDecls valDecls, VarDecls varDecls, FunDecls funDecls) {
 		this.valDecls = valDecls;
 		this.varDecls = varDecls;
-//		this.funDecls = funDecls;
+		this.funDecls = funDecls;
 //		this.stmt = stmt;
 	}
 	
@@ -19,7 +19,7 @@ public class Block {
         System.out.println(indentation + "Block");
         valDecls.display(indentation + "  ");
         varDecls.display(indentation + "  ");
-//        funDecls.display(indentation + "  ");
+        funDecls.display(indentation + "  ");
 //        stmt.display(indentation + "  ");
     }
 }

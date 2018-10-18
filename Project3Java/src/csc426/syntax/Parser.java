@@ -65,8 +65,9 @@ public class Parser {
 	public Block parseBlock() {
 		ValDecls vs = parseValDecls();
 		VarDecls rs = parseVarDecls();
+		FunDecls fs = parseFunDecls();
 		
-		return new Block(vs, rs);
+		return new Block(vs, rs, fs);
 	}
 	
 	/*
@@ -149,6 +150,76 @@ public class Parser {
 		}
 		
 		return null; // Unreachable
+	}
+	
+	/*
+	 * <FunDecls> --> <FunDecl> <FunDecls>         FIRST = FUN
+	 *              | ε                            FOLLOW = FIRST(Stmt)
+	 */
+	public FunDecls parseFunDecls() {
+		List<FunDecl> fdList = new ArrayList<FunDecl>();
+		while (check(TokenType.FUN)) {
+			fdList.add(parseFunDecl());
+		}
+		return new FunDecls(fdList);
+	}
+	
+	/*
+	 * <FunDecl> --> fun id ( <ParamList> ) : <Type> ; <Block> ;    FIRST = FUN
+	 */
+	public FunDecl parseFunDecl() {
+		match(TokenType.FUN);
+		Token id = match(TokenType.ID);
+		match(TokenType.LPAREN);
+		List<Param> ps = parseParamList();
+		match(TokenType.RPAREN);
+		match(TokenType.COLON);
+		Type type = parseType();
+		match(TokenType.SEMI);
+		Block block = parseBlock();
+		match(TokenType.SEMI);
+		return new FunDecl(id.lexeme, type, ps, block);
+	}
+	
+	public List<Param> parseParamList() {
+		if (check(TokenType.ID))
+			return parseParams().getParams();
+		else 
+			return new ArrayList<Param>();
+	}
+	
+	/*
+	 * <Params> --> <Param> <ParamsRest>           FIRST = ID
+	 */
+	public Params parseParams() {
+		List<Param> ps = new ArrayList<Param>();
+		Param param = parseParam();
+		ps.add(param);
+		ps.addAll(parseParamsRest());
+		return new Params(ps);
+	}
+	
+	/*
+	 * <ParamsRest> --> , <Params>                 FIRST = COMMA
+	 *                | ε                          FOLLOW = SEMI
+	 */
+	public List<Param> parseParamsRest() {
+		if (check(TokenType.COMMA)) {
+			match(TokenType.COMMA);
+			Params ps = parseParams();
+			return ps.getParams();
+		} else
+			return new ArrayList<Param>();
+	}
+	
+	/*
+	 * <Param> --> id : <Type>                     FIRST = ID
+	 */
+	public Param parseParam() {
+		Token id = match(TokenType.ID);
+		match(TokenType.COLON);
+		Type type = parseType();
+		return new Param(id.lexeme, type);
 	}
 
 	private Scanner scanner;
