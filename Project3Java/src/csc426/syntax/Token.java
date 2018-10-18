@@ -1,4 +1,4 @@
-package csc426;
+package csc426.syntax;
 
 /**
  * A Token represents one lexical unit of a YASL source program. A Token object

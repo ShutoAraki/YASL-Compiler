@@ -1,4 +1,4 @@
-package csc426;
+package csc426.syntax;
 
 import java.io.IOException;
 import java.io.Reader;

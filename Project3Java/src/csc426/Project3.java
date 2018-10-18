@@ -5,20 +5,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
 
+import csc426.ast.Program;
+import csc426.syntax.*;
+
 /**
- * Main class for Project 1 -- Scanner for a Subset of YASL (Fall 2015). Scans
- * tokens from standard input and prints the token stream to standard output.
+ * Main class for Project 3
+ * 	The main method displays the abstract syntax tree (AST)
+ *  of the input with proper indentations.
  * 
- * @author bhoward
+ * @author ShutoAraki
  */
 public class Project3 {
+	
 	public static void main(String[] args) throws IOException {
+		
 		Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
- 		Token token;
-		do {
-			token = scanner.next();
-			System.out.println(token);
-		} while (token.type != TokenType.EOF);
- 		scanner.close();
+		Parser parser = new Parser(scanner);
+		// This Program object is the root of the AST
+		Program program = parser.parseProgram();
+		program.display("");
+		
 	}
 }
