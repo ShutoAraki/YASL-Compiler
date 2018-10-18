@@ -21,26 +21,34 @@ public enum TokenType {
 	BEGIN, // begin keyword
 	END, // end keyword
 	PRINT, // print keyword
-	VAR, // variable
-	INT, // integer
-	BOOL, // boolean
-	VOID, 
+	VAR, // var keyword
+	INT, // int keyword
+	BOOL, // bool keyword
+	VOID, // void keyword
 	FUN, // function keyword
-	IF, 
-	THEN,
-	ELSE, 
-	WHILE, 
-	DO, 
-	INPUT, 
-	AND, 
-	OR, 
-	NOT, 
-	TRUE, 
-	FALSE,
-	COLON, 
-	LPAREN, 
-	RPAREN, 
-	COMMA,
+	IF, // if keyword
+	THEN, // then keyword
+	ELSE, // else keyword
+	WHILE, // while keyword
+	DO, // do keyword
+	INPUT, // input keyword
+	AND, // and keyword
+	OR, // or keyword
+	NOT, // not keyword
+	TRUE, // true keyword
+	FALSE, // false keyword
+	COLON, // :
+	LPAREN, // (
+	RPAREN, // )
+	COMMA, //,
+	LE, // <=
+	LT, // <
+	GE, // >=
+	GT, // >
+	NE, // <>
+	EQ, // ==
+	LET, // let keyword
 	ID, // identifier
+	STRING, // String literal
 	EOF // end-of-file
 }
