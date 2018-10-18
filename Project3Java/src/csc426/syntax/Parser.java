@@ -45,7 +45,7 @@ public class Parser {
 	}
 
 	/*-
-	 * <Program> --> program id ; <Block> . EOF      FIRST = program
+	 * <Program> --> program id ; <Block> . EOF    FIRST = program
 	 */
 	public Program parseProgram() {
 		match(TokenType.PROGRAM);
@@ -69,7 +69,7 @@ public class Parser {
 	
 	/*
 	 * <ValDecls> --> <ValDecl> <ValDecls>		   FIRST = VAL
-	 * 			    | ε							   FOLLOW = VAR
+	 *              | ε							   FOLLOW = VAR
 	 */
 	public ValDecls parseValDecls() {
 		if (check(TokenType.VAL)) {
@@ -79,7 +79,7 @@ public class Parser {
 			}
 			return new ValDecls(vdList);
 		}
-		return null;
+		return new ValDecls(new ArrayList<ValDecl>());
 	}
 	
 	/*
@@ -98,7 +98,7 @@ public class Parser {
 	
 	/*
 	 * <Sign> --> -								   FIRST = MINUS
-	 * 			| ε								   FOLLOW = NUM
+	 *          | ε								   FOLLOW = NUM
 	 */
 	public int parseSign() {
 		if (check(TokenType.MINUS)) {
