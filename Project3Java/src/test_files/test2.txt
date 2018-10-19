@@ -9,7 +9,7 @@ fun foo(): void;
   var b: bool;
 ;
 fun bar(n: int, b: bool): int;
-  var c: void;
+  var c: bool;
   fun fact(n: int): int;
     val y = 4;
 ;

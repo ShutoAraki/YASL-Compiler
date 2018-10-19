@@ -44,7 +44,7 @@ public class Parser {
 		return false;
 	}
 
-	/*-
+	/*
 	 * <Program> --> program id ; <Block> . EOF    FIRST = program
 	 */
 	public Program parseProgram() {
@@ -62,7 +62,7 @@ public class Parser {
 	/*
 	 * <Block> --> <ValDecls> <VarDecls> <FunDecls> <Stmt>     FIRST = VAL, VAR, FUN, FIRST(Stmt)
 	 */
-	public Block parseBlock() {
+	private Block parseBlock() {
 		ValDecls vs = parseValDecls();
 		VarDecls rs = parseVarDecls();
 		FunDecls fs = parseFunDecls();
@@ -74,7 +74,7 @@ public class Parser {
 	 * <ValDecls> --> <ValDecl> <ValDecls>		   FIRST = VAL
 	 *              | ε							   FOLLOW = VAR
 	 */
-	public ValDecls parseValDecls() {
+	private ValDecls parseValDecls() {
 		List<ValDecl> vdList = new ArrayList<ValDecl>();
 		while (check(TokenType.VAL)) {
 			vdList.add(parseValDecl());
@@ -85,7 +85,7 @@ public class Parser {
 	/*
 	 * <ValDecl> --> val id = <Sign> num ;         FIRST = VAL
 	 */
-	public ValDecl parseValDecl() {
+	private ValDecl parseValDecl() {
 		match(TokenType.VAL);
 		Token id = match(TokenType.ID);
 		match(TokenType.ASSIGN);
@@ -100,7 +100,7 @@ public class Parser {
 	 * <Sign> --> -								   FIRST = MINUS
 	 *          | ε								   FOLLOW = NUM
 	 */
-	public int parseSign() {
+	private int parseSign() {
 		if (check(TokenType.MINUS)) {
 			match(TokenType.MINUS);
 			return -1;
@@ -112,7 +112,7 @@ public class Parser {
 	 * <VarDecls> --> <VarDecl> <VarDecls>         FIRST = VAR
 	 *              | ε                            FOLLOW = FUN, FIRST(Stmt)
 	 */
-	public VarDecls parseVarDecls() {
+	private VarDecls parseVarDecls() {
 		List<VarDecl> vrList = new ArrayList<VarDecl>();
 		while (check(TokenType.VAR)) {
 			vrList.add(parseVarDecl());
@@ -123,7 +123,7 @@ public class Parser {
 	/*
 	 * <VarDecl> --> var id : <Type> ;             FIRST = VAR
 	 */
-	public VarDecl parseVarDecl() {
+	private VarDecl parseVarDecl() {
 		match(TokenType.VAR);
 		Token id = match(TokenType.ID);
 		match(TokenType.COLON);
@@ -133,7 +133,7 @@ public class Parser {
 	}
 	
 	// Better implementation? Too much redundant code
-	public Type parseType() {
+	private Type parseType() {
 		
 		if (check(TokenType.INT)) {
 			match(TokenType.INT);
@@ -156,7 +156,7 @@ public class Parser {
 	 * <FunDecls> --> <FunDecl> <FunDecls>         FIRST = FUN
 	 *              | ε                            FOLLOW = FIRST(Stmt)
 	 */
-	public FunDecls parseFunDecls() {
+	private FunDecls parseFunDecls() {
 		List<FunDecl> fdList = new ArrayList<FunDecl>();
 		while (check(TokenType.FUN)) {
 			fdList.add(parseFunDecl());
@@ -167,7 +167,7 @@ public class Parser {
 	/*
 	 * <FunDecl> --> fun id ( <ParamList> ) : <Type> ; <Block> ;    FIRST = FUN
 	 */
-	public FunDecl parseFunDecl() {
+	private FunDecl parseFunDecl() {
 		match(TokenType.FUN);
 		Token id = match(TokenType.ID);
 		match(TokenType.LPAREN);
@@ -181,7 +181,7 @@ public class Parser {
 		return new FunDecl(id.lexeme, type, ps, block);
 	}
 	
-	public List<Param> parseParamList() {
+	private List<Param> parseParamList() {
 		if (check(TokenType.ID))
 			return parseParams().getParams();
 		else 
@@ -191,7 +191,7 @@ public class Parser {
 	/*
 	 * <Params> --> <Param> <ParamsRest>           FIRST = ID
 	 */
-	public Params parseParams() {
+	private Params parseParams() {
 		List<Param> ps = new ArrayList<Param>();
 		Param param = parseParam();
 		ps.add(param);
@@ -203,7 +203,7 @@ public class Parser {
 	 * <ParamsRest> --> , <Params>                 FIRST = COMMA
 	 *                | ε                          FOLLOW = SEMI
 	 */
-	public List<Param> parseParamsRest() {
+	private List<Param> parseParamsRest() {
 		if (check(TokenType.COMMA)) {
 			match(TokenType.COMMA);
 			Params ps = parseParams();
@@ -215,7 +215,7 @@ public class Parser {
 	/*
 	 * <Param> --> id : <Type>                     FIRST = ID
 	 */
-	public Param parseParam() {
+	private Param parseParam() {
 		Token id = match(TokenType.ID);
 		match(TokenType.COLON);
 		Type type = parseType();
