@@ -2,7 +2,7 @@ package csc426.ast;
 
 import java.util.List;
 
-public class FunDecl {
+public class FunDecl extends ASTNode {
 
 	private String id;
 	private Type type;

@@ -1,6 +1,6 @@
 package csc426.ast;
 
-public class Param {
+public class Param extends ASTNode {
 
 	private String id;
 	private Type type;

@@ -1,6 +1,6 @@
 package csc426.ast;
 
-public class Program {
+public class Program extends ASTNode {
 
     private String name;
     private Block block;

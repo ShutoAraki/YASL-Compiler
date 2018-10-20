@@ -63,9 +63,9 @@ public class Parser {
 	 * <Block> --> <ValDecls> <VarDecls> <FunDecls> <Stmt>     FIRST = VAL, VAR, FUN, FIRST(Stmt)
 	 */
 	private Block parseBlock() {
-		ValDecls vs = parseValDecls();
-		VarDecls rs = parseVarDecls();
-		FunDecls fs = parseFunDecls();
+		List<ValDecl> vs = parseValDecls();
+		List<VarDecl> rs = parseVarDecls();
+		List<FunDecl> fs = parseFunDecls();
 		
 		return new Block(vs, rs, fs);
 	}
@@ -74,12 +74,12 @@ public class Parser {
 	 * <ValDecls> --> <ValDecl> <ValDecls>		   FIRST = VAL
 	 *              | ε							   FOLLOW = VAR
 	 */
-	private ValDecls parseValDecls() {
+	private List<ValDecl> parseValDecls() {
 		List<ValDecl> vdList = new ArrayList<ValDecl>();
 		while (check(TokenType.VAL)) {
 			vdList.add(parseValDecl());
 		}
-		return new ValDecls(vdList);
+		return vdList;
 	}
 	
 	/*
@@ -112,12 +112,12 @@ public class Parser {
 	 * <VarDecls> --> <VarDecl> <VarDecls>         FIRST = VAR
 	 *              | ε                            FOLLOW = FUN, FIRST(Stmt)
 	 */
-	private VarDecls parseVarDecls() {
+	private List<VarDecl> parseVarDecls() {
 		List<VarDecl> vrList = new ArrayList<VarDecl>();
 		while (check(TokenType.VAR)) {
 			vrList.add(parseVarDecl());
 		}
-		return new VarDecls(vrList);
+		return vrList;
 	}
 	
 	/*
@@ -156,12 +156,12 @@ public class Parser {
 	 * <FunDecls> --> <FunDecl> <FunDecls>         FIRST = FUN
 	 *              | ε                            FOLLOW = FIRST(Stmt)
 	 */
-	private FunDecls parseFunDecls() {
+	private List<FunDecl> parseFunDecls() {
 		List<FunDecl> fdList = new ArrayList<FunDecl>();
 		while (check(TokenType.FUN)) {
 			fdList.add(parseFunDecl());
 		}
-		return new FunDecls(fdList);
+		return fdList;
 	}
 	
 	/*
@@ -181,6 +181,10 @@ public class Parser {
 		return new FunDecl(id.lexeme, type, ps, block);
 	}
 	
+	/*
+	 * <ParamList> --> <Params>                    FIRST = ID
+	 *               | ε                           FOLLOW = RPAREN
+	 */
 	private List<Param> parseParamList() {
 		if (check(TokenType.ID))
 			return parseParams().getParams();
@@ -221,6 +225,27 @@ public class Parser {
 		Type type = parseType();
 		return new Param(id.lexeme, type);
 	}
+	
+	/*
+	 * <Stmt> --> let id = <Expr>                  FIRST = LET
+	 *          | begin <StmtList> end             FIRST = BEGIN
+	 *          | if <Expr> then <Stmt> <StmtRest> FIRST = IF
+	 *          | while <Expr> do <Stmt>           FIRST = WHILE
+	 *          | input string <StmtRest2>         FIRST = INPUT
+	 *          | print <Items>                    FIRST = PRINT
+	 *          | <Expr>                           FIRST = NUM, ID, TRUE, FALSE, -, NOT
+	 */
+	/*
+	private Stmt parseStmt() {
+		if (check(TokenType.LET)) {
+			match(TokenType.LET);
+			Token id = match(TokenType.ID);
+			match(TokenType.ASSIGN);
+			Expr expr = parseExpr();
+			return new Assign(id.lexeme, expr);
+		}
+	}
+	*/
 
 	private Scanner scanner;
 	private Token current;

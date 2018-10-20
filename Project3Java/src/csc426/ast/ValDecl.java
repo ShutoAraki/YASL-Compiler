@@ -1,6 +1,6 @@
 package csc426.ast;
 
-public class ValDecl {
+public class ValDecl extends ASTNode {
 
 	private String id;
 	private int num;

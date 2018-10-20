@@ -2,7 +2,7 @@ package csc426.ast;
 
 import java.util.List;
 
-public class Params {
+public class Params extends ASTNode {
 
 	private List<Param> params;
 	
