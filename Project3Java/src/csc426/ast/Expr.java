@@ -1,5 +1,5 @@
 package csc426.ast;
 
-public class Expr {
+public abstract class Expr extends ASTNode {
 
 }

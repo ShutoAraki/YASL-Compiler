@@ -1,7 +1,7 @@
 program demo3;
 
 val x = 9;
-var a : int;
+//var a : int;
 
 // Function declaration!
 fun foo(): void;

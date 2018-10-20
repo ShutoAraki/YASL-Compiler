@@ -137,13 +137,13 @@ public class Parser {
 		
 		if (check(TokenType.INT)) {
 			match(TokenType.INT);
-			return new Type(TokenType.INT);
+			return Type.Int;
 		} else if (check(TokenType.BOOL)) {
 			match(TokenType.BOOL);
-			return new Type(TokenType.BOOL);
+			return Type.Bool;
 		} else if (check(TokenType.VOID)) {
 			match(TokenType.VOID);
-			return new Type(TokenType.VOID);
+			return Type.Void;
 		} else {
 			System.err.println("Invalid var type: Var type has to be INT, BOOL, or VOID");
 			System.exit(1);
@@ -226,6 +226,12 @@ public class Parser {
 		return new Param(id.lexeme, type);
 	}
 	
+	
+	
+
+	
+	
+	
 	/*
 	 * <Stmt> --> let id = <Expr>                  FIRST = LET
 	 *          | begin <StmtList> end             FIRST = BEGIN
@@ -233,19 +239,67 @@ public class Parser {
 	 *          | while <Expr> do <Stmt>           FIRST = WHILE
 	 *          | input string <StmtRest2>         FIRST = INPUT
 	 *          | print <Items>                    FIRST = PRINT
-	 *          | <Expr>                           FIRST = NUM, ID, TRUE, FALSE, -, NOT
+	 *          | <Expr>                           FIRST = NUM, ID, TRUE, FALSE, MINUS, NOT, LPAREN
 	 */
+//	private Stmt parseStmt() {
+//		if (check(TokenType.LET)) {
+//			match(TokenType.LET);
+//			Token id = match(TokenType.ID);
+//			match(TokenType.ASSIGN);
+//			Expr expr = parseExpr();
+//			return new Assign(id.lexeme, expr);
+//		} else if (check(TokenType.BEGIN)) {
+//			match(TokenType.BEGIN);
+//			List<Stmt> ss = parseStmtList();
+//			match(TokenType.END);
+//			return new Sequence(ss);
+//		}
+//	}
+
+
 	/*
-	private Stmt parseStmt() {
-		if (check(TokenType.LET)) {
-			match(TokenType.LET);
-			Token id = match(TokenType.ID);
-			match(TokenType.ASSIGN);
-			Expr expr = parseExpr();
-			return new Assign(id.lexeme, expr);
-		}
-	}
-	*/
+	 * <Expr> --> <SimpleExpr> <ExprRest>          FIRST = NUM, ID, TRUE, FALSE, MINUS, NOT, LPAREN
+	 */
+//	private Expr parseExpr() {
+//		if (check(TokenType.NUM, TokenType.ID, TokenType.TRUE, TokenType.FALSE, TokenType.MINUS, TokenType.NOT, TokenType.LPAREN)) {
+//			parseSimpleExpr();
+//			parseExprRest();
+//		}
+//	}
+	
+	/*
+	 * <ExprRest> --> <RelOp> <SimpleExpr>         FIRST = EQ, NE, LE, GE, LT, GT
+	 *              | ε                            FOLLOW = THEN, DO, SEMI, COMMA
+	 */
+//	private Expr parseExprRest() {
+//		if (check(TokenType.EQ, TokenType.NE, TokenType.LE, TokenType.GE, TokenType.LT, TokenType.GT)) {
+//			parseRelOp();
+//			parseSimpleExpr();
+//		}
+//	}
+	
+	/*
+	 * <SimpleExpr> --> <Term> <SERest>            FIRST = NUM, ID, TRUE, FALSE, MINUS, NOT, LPAREN
+	 */
+//	private Expr parseSimpleExpr() {
+//		if (check(TokenType.NUM, TokenType.ID, TokenType.TRUE, TokenType.FALSE, TokenType.MINUS, TokenType.NOT, TokenType.LPAREN)) {
+//			parseTerm();
+//			parseSERest();
+//		}
+//	}
+	
+	/*
+	 * <SERest> --> <AddOp> <SimpleExpr>           FIRST = PLUS, MINUS, OR
+	 *            | ε                              FOLLOW = FIRST(MulOp) = STAR, DIV, MOD, AND
+	 */
+//	private Expr parseSERest() {
+//		if(check(TokenType.PLUS, TokenType.MINUS, TokenType.OR)) {
+//			parseAddOp();
+//			parseSimpleExpr();
+//		}
+//	}
+
+	
 
 	private Scanner scanner;
 	private Token current;
