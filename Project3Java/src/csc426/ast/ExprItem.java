@@ -1,18 +1,16 @@
 package csc426.ast;
 
-public class UnOp extends Expr {
+public class ExprItem extends Item {
 	
-	private Op1 op;
 	private Expr expr;
-	
-	public UnOp(Op1 op, Expr expr) {
-		this.op = op;
+
+	public ExprItem(Expr expr) {
 		this.expr = expr;
 	}
 
 	@Override
 	public void display(String indentation) {
-		System.out.println(indentation + "UnOp " + op);
+		System.out.println(indentation + "ExprItem");
 		expr.display(indentation + "  ");
 	}
 

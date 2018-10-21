@@ -20,11 +20,16 @@ public class Project3 {
 	public static void main(String[] args) throws IOException {
 		
 //		Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-		Scanner scanner = new Scanner(new FileReader("src/test_files/test2.txt"));
+		Scanner scanner = new Scanner(new FileReader("src/test_files/test3.txt"));
 		Parser parser = new Parser(scanner);
 		// This Program object is the root of the AST
 		Program program = parser.parseProgram();
 		program.display("");
-		
+//		Token token;
+//		do {
+//			token = scanner.next();
+//			System.out.println(token);
+//		} while (token.type != TokenType.EOF);
+ 		scanner.close();
 	}
 }

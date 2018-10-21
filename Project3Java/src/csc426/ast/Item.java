@@ -1,5 +1,5 @@
 package csc426.ast;
 
-public class Item {
-
+public abstract class Item extends ASTNode {
+	
 }

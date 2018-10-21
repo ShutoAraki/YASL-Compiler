@@ -56,6 +56,7 @@ public class Scanner {
 		keywords.put("true", TokenType.TRUE);
 		keywords.put("false", TokenType.FALSE);
 		keywords.put("let", TokenType.LET);
+		keywords.put("not", TokenType.NOT);
 
 		opsAndPunct = new HashMap<>();
 		opsAndPunct.put("+", TokenType.PLUS);

@@ -7,14 +7,13 @@ public class Block extends ASTNode {
 	private List<ValDecl> valDecls;
 	private List<VarDecl> varDecls;
 	private List<FunDecl> funDecls; 
-//	private Stmt stmt;
+	private Stmt stmt;
 	
-//	public Block(ValDecls valDecls, VarDecls varDecls, FunDecls funDecls, Stmt stmt) {
-	public Block(List<ValDecl> valDecls, List<VarDecl> varDecls, List<FunDecl> funDecls) {
+	public Block(List<ValDecl> valDecls, List<VarDecl> varDecls, List<FunDecl> funDecls, Stmt stmt) {
 		this.valDecls = valDecls;
 		this.varDecls = varDecls;
 		this.funDecls = funDecls;
-//		this.stmt = stmt;
+		this.stmt = stmt;
 	}
 	
 	public void display(String indentation) {
@@ -27,6 +26,6 @@ public class Block extends ASTNode {
         for (FunDecl fun : funDecls)
         		fun.display(indentation + "  ");
         
-//        stmt.display(indentation + "  ");
+        stmt.display(indentation + "  ");
     }
 }
