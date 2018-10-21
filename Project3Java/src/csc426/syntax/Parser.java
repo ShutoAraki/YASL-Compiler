@@ -420,24 +420,34 @@ public class Parser {
 	/*
 	 * <SimpleExpr> --> <Term> <SERest>            FIRST = NUM, ID, TRUE, FALSE, MINUS, NOT, LPAREN
 	 */
+//	private Expr parseSimpleExpr() {
+//		Expr left = parseTerm();
+//		return parseSERest(left);
+//	}
+	// Now, this version constructs left-associative tree.
 	private Expr parseSimpleExpr() {
-		Expr left = parseTerm();
-		return parseSERest(left);
+		Expr leftT = parseTerm();
+		while(check(TokenType.PLUS, TokenType.MINUS, TokenType.OR)) {
+			Op2 op = parseAddOp();
+			Expr rightT = parseTerm();
+			leftT = new BinOp(leftT, op, rightT);
+		}
+		return leftT;
 	}
 	
 	/*
 	 * <SERest> --> <AddOp> <SimpleExpr>           FIRST = PLUS, MINUS, OR
 	 *            | ε                              FOLLOW = FIRST(MulOp) = STAR, DIV, MOD, AND
 	 */
-	private Expr parseSERest(Expr left) {
-		if(check(TokenType.PLUS, TokenType.MINUS, TokenType.OR)) {
-			Op2 op = parseAddOp();
-			Expr right = parseSimpleExpr();
-			return new BinOp(left, op, right);
-		} else {
-			return left;
-		}
-	}
+//	private Expr parseSERest(Expr left) {
+//		if(check(TokenType.PLUS, TokenType.MINUS, TokenType.OR)) {
+//			Op2 op = parseAddOp();
+//			Expr right = parseSimpleExpr();
+//			return new BinOp(left, op, right);
+//		} else {
+//			return left;
+//		}
+//	}
 	
 	/*
 	 * <RelOp> --> = =                             FIRST = EQ
@@ -537,24 +547,34 @@ public class Parser {
 	/*
 	 * <Term> --> <Factor> <TermRest>
 	 */
+//	private Expr parseTerm() {
+//		Expr left = parseFactor();
+//		return parseTermRest(left);
+//	}
+	// Left-associative tree construction version.
 	private Expr parseTerm() {
-		Expr left = parseFactor();
-		return parseTermRest(left);
+		Expr leftF = parseFactor();
+		while(check(TokenType.STAR, TokenType.DIV, TokenType.MOD, TokenType.AND)) {
+			Op2 op = parseMulOp();
+			Expr rightF = parseFactor();
+			leftF = new BinOp(leftF, op, rightF);
+		}
+		return leftF;
 	}
 	
 	/*
 	 * <TermRest> --> <MulOp> <Factor>             FIRST = STAR, DIV, MOD, AND
 	 *              | ε
 	 */
-	private Expr parseTermRest(Expr left) {
-		if (check(TokenType.STAR, TokenType.DIV, TokenType.MOD, TokenType.AND)) {
-			Op2 op = parseMulOp();
-			Expr right = parseFactor();
-			return new BinOp(left, op, right);
-		} else {
-			return left;
-		}
-	}
+//	private Expr parseTermRest(Expr left) {
+//		if (check(TokenType.STAR, TokenType.DIV, TokenType.MOD, TokenType.AND)) {
+//			Op2 op = parseMulOp();
+//			Expr right = parseFactor();
+//			return new BinOp(left, op, right);
+//		} else {
+//			return left;
+//		}
+//	}
 	
 	/*
 	 * <Factor> --> num                            FIRST = NUM
@@ -572,8 +592,10 @@ public class Parser {
 			String id = match(TokenType.ID).lexeme;
 			return parseFactorRest(id);
 		} else if (check(TokenType.TRUE)) {
+			match(TokenType.TRUE);
 			return new True();
 		} else if (check(TokenType.FALSE)) {
+			match(TokenType.FALSE);
 			return new False();
 		} else if (check(TokenType.MINUS, TokenType.NOT)) {
 			Op1 op = parseUnOp();
