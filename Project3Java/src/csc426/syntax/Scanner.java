@@ -63,7 +63,6 @@ public class Scanner {
 		opsAndPunct.put("*", TokenType.STAR);
 		opsAndPunct.put(";", TokenType.SEMI);
 		opsAndPunct.put(".", TokenType.PERIOD);
-		opsAndPunct.put("=", TokenType.ASSIGN);
 		opsAndPunct.put(":", TokenType.COLON);
 		opsAndPunct.put("(", TokenType.LPAREN);
 		opsAndPunct.put(")", TokenType.RPAREN);
@@ -115,7 +114,7 @@ public class Scanner {
 					state = 4;
 					source.advance();
 				// State 8 deals with operators and punctuation
-				} else if ("+-*;.=:(),".contains(String.valueOf(source.current))) {
+				} else if ("+-*;.:(),".contains(String.valueOf(source.current))) {
 					state = 8;
 					lexeme.append(source.current);
 					source.advance();
@@ -131,11 +130,17 @@ public class Scanner {
 					startColumn = source.column;
 					state = 10;
 					source.advance();
-				// States 11-12 deals with string literal
+				// States 11-12 deal with string literal
 				} else if (source.current == '"') {
 					startLine = source.line;
 					startColumn = source.column;
 					state = 11;
+					source.advance();
+				// States 13-14 deal with equal operator ==
+				} else if (source.current == '=') {
+					startLine = source.line;
+					startColumn = source.column;
+					state = 13;
 					source.advance();
 				} else if (Character.isWhitespace(source.current)) {
 					source.advance();
@@ -257,6 +262,15 @@ public class Scanner {
 				} else 
 					return new Token(startLine, startColumn, TokenType.STRING, lexeme.toString());
 				break;
+			case 13:
+				if (source.current == '=') {
+					state = 14;
+					source.advance();
+				} else
+					return new Token(startLine, startColumn, TokenType.ASSIGN, null);
+				break;
+			case 14:
+				return new Token(startLine, startColumn, TokenType.EQ, null);
 			default:
 				// This part will NOT be executed. The error will be thrown just in case.
 				throw new RuntimeException("Unreachable. Something is wrong with the lexer.");
