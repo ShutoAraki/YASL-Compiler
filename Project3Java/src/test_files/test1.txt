@@ -2,6 +2,8 @@ program demo1;
 /* Declare some constants */
 val x = 6;
 val y = 7;
-begin
-  print x * y // should print 42
-end.
+// These are variables
+var a : int;
+var b : bool;
+var c : void;
+.

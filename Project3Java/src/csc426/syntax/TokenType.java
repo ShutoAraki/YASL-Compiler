@@ -1,4 +1,4 @@
-package csc426;
+package csc426.syntax;
 
 /**
  * Enumeration of the different kinds of tokens in the YASL subset.

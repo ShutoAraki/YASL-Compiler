@@ -1,4 +1,17 @@
-/* This comment should be ignored
+program demo3;
 
-Then after this, it should produce an error message.
+val x = 9;
+//var a : int;
 
+// Function declaration!
+fun foo(): void;
+  val x = 42;
+  var b: bool;
+;
+fun bar(n: int, b: bool): int;
+  var c: bool;
+  fun fact(n: int): int;
+    val y = 4;
+;
+;
+.

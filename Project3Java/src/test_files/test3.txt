@@ -1,0 +1,50 @@
+
+// This program shows just about all of YASL
+program demo3;
+  /* Declare some constants */
+  val x = 6;
+  val y = 7;
+  val z = -120;
+  /* Declare some variables */
+  var a: int;
+  var b: bool;
+  var c1: int; var c2: int;
+  /* Declare some functions */
+  fun foo(): void;
+    val a = 42; // local to foo
+    var b: bool;
+  begin
+    //let c1 = x * y;
+    //let b = a == c1;
+    let yes = true;
+    if b then
+      if b or not b then
+        print "Hooray!"
+    else
+      print "Boo!"
+  end;
+  fun bar(n: int, b: bool): int;
+    fun fact(n: int): int;
+      if n > 0 then
+      begin
+        fact(n - 1) * n
+      end
+      else
+        (y + x) mod 2;
+  begin
+    while b do
+    begin
+      let b = not b;
+      foo()
+    end;
+    fact(n)
+  end;
+begin
+  input "Enter a number", a;
+  let c2 = bar(a, x <> y);
+  print "The answer is """, c2 - -z + c1, """!";
+  print c2 - z * c1;
+  print a - b + c;
+  print a * b div c;
+  input "Hit any key to end"
+end.
