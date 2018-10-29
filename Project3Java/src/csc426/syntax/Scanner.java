@@ -164,7 +164,7 @@ public class Scanner {
 				break;
 			case 3:
 				// a list of legal characters to signal the end of lexeme
-				String end_chars = "+-*;.=/ \t\n:(),<>";
+				String end_chars = "+-*;.=/ \t\n:(),<>\"";
 				
 				// Alphabets, digits, and underscores are parts of legal identifier
 				if (Character.isAlphabetic(source.current) || Character.isDigit(source.current) || source.current == '_') {
