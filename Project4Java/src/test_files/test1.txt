@@ -1,0 +1,9 @@
+program demo1;
+/* Declare some constants */
+val x = 6;
+val y = 7;
+// These are variables
+var a : int;
+var b : bool;
+var c : void;
+.
