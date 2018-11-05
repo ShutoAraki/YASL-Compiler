@@ -2,6 +2,9 @@ package csc426.ast;
 
 import java.util.List;
 
+import csc426.interp.SymbolTable;
+import csc426.interp.Value;
+
 public class Block extends ASTNode {
 	
 	private List<ValDecl> valDecls;
@@ -28,4 +31,19 @@ public class Block extends ASTNode {
         
         stmt.display(indentation + "  ");
     }
+	
+	public Value interpret(SymbolTable t) {
+				
+		for (ValDecl d : valDecls) {
+			d.interpret(t);
+		}
+		for (VarDecl d : varDecls) {
+			d.interpret(t);
+		}
+		for (FunDecl d : funDecls) {
+			d.interpret(t);
+		}
+		
+		return stmt.interpret(t);
+	}
 }

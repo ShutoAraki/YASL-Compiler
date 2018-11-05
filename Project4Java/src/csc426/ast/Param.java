@@ -10,8 +10,16 @@ public class Param extends ASTNode {
 		this.type = type;
 	}
 	
+	public String getId() { return id; }
+	
+	public Type getType() { return type; }
+	
 	public void display(String indentation) {
 		System.out.println(indentation + "Val " + id + " : " + type);
+	}
+	
+	public String toString() {
+		return id + " : " + type;
 	}
 
 }

@@ -1,5 +1,12 @@
 package csc426.ast;
 
+import csc426.interp.BoolCell;
+import csc426.interp.BoolValue;
+import csc426.interp.IntCell;
+import csc426.interp.IntValue;
+import csc426.interp.SymbolTable;
+import csc426.interp.Value;
+
 public class Assign extends Stmt {
 
 	private String id;
@@ -13,5 +20,18 @@ public class Assign extends Stmt {
 	public void display(String indentation) {
 		System.out.println(indentation + "Assign " + id);
 		expr.display(indentation + "  ");
+	}
+
+	@Override
+	public Value interpret(SymbolTable t) {
+		
+		Value lhs = t.lookup(id);
+		Value rhs = expr.interpret(t);
+		if (lhs instanceof IntCell)
+			((IntCell) lhs).set(((IntValue) rhs).intValue());
+		else 
+			((BoolCell) lhs).set(((BoolValue) rhs).boolValue());
+		
+		return rhs;
 	}
 }

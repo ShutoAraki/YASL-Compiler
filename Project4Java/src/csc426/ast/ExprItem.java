@@ -7,6 +7,8 @@ public class ExprItem extends Item {
 	public ExprItem(Expr expr) {
 		this.expr = expr;
 	}
+	
+	public Expr getExpr() { return expr; }
 
 	@Override
 	public void display(String indentation) {

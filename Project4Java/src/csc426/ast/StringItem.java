@@ -8,6 +8,8 @@ public class StringItem extends Item {
 		this.msg = msg;
 	}
 	
+	public String getMsg() { return msg; }
+	
 	@Override
 	public void display(String indentation) {
 		System.out.println(indentation + "StringItem \"" + msg + "\"");

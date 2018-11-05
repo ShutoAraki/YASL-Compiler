@@ -2,6 +2,9 @@ package csc426.ast;
 
 import java.util.List;
 
+import csc426.interp.FunValue;
+import csc426.interp.SymbolTable;
+
 public class FunDecl extends ASTNode {
 
 	private String id;
@@ -21,6 +24,10 @@ public class FunDecl extends ASTNode {
 		for (Param p : ps)
 				p.display(indentation + "  ");
 		block.display(indentation + "  ");
+	}
+
+	public void interpret(SymbolTable t) {
+		t.bind(id, new FunValue(ps, type, block));
 	}
 
 }
