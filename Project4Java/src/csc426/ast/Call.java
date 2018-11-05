@@ -59,7 +59,8 @@ public class Call extends Expr {
 		
 		System.out.println(funV);
 		
-		List<Param> params = funV.getParams();
+		// The original list of parameters should not be modified
+		List<Param> params = funV.getParams(); // TODO: Something might be wrong with this.
 		Block block = funV.getBlock();
 		List<Value> as = new ArrayList<Value>();
 		

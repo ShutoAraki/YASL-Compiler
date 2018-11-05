@@ -20,5 +20,6 @@ program demo4;
 begin
   input "Enter a number", a;
   let c1 = bar(a, a - 4 <> x * y);
+  bar(a, 4 <> x);
   print c1
 end.
