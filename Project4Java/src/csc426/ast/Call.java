@@ -56,6 +56,9 @@ public class Call extends Expr {
 	@Override
 	public Value interpret(SymbolTable t) {
 		FunValue funV = (FunValue) t.lookup(id);
+		
+		System.out.println(funV);
+		
 		List<Param> params = funV.getParams();
 		Block block = funV.getBlock();
 		List<Value> as = new ArrayList<Value>();
@@ -67,6 +70,7 @@ public class Call extends Expr {
 		t.enter();
 		Value result = call(params, block, as, t);
 		t.exit();
+		
 		return result;
 	}
 	

@@ -21,4 +21,11 @@ public class FunValue extends Value{
 		this.type = type;
 		this.block = block;
 	}
+	
+	public String toString() {
+		String ans = "FUNVAL\n";
+		ans += "Parameters: " + ps.toString() + "\n";
+		ans += "Type: " + type + "\n";
+		return ans;
+	}
 }

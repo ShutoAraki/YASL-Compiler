@@ -27,10 +27,13 @@ public class Assign extends Stmt {
 		
 		Value lhs = t.lookup(id);
 		Value rhs = expr.interpret(t);
+		
+		System.out.println("RHS id = " + id + " with the value of " + rhs);
+		
 		if (lhs instanceof IntCell)
-			((IntCell) lhs).set(((IntValue) rhs).intValue());
+			((IntCell) lhs).set(Integer.parseInt(rhs.toString()));
 		else 
-			((BoolCell) lhs).set(((BoolValue) rhs).boolValue());
+			((BoolCell) lhs).set(Boolean.parseBoolean(rhs.toString()));
 		
 		return rhs;
 	}

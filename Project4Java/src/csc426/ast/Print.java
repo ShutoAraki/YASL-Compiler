@@ -29,7 +29,7 @@ public class Print extends Stmt {
 			if (it instanceof ExprItem) {
 				Expr expr = ((ExprItem) it).getExpr();
 				Value value = expr.interpret(t);
-				System.out.print(((IntValue) value).intValue());
+				System.out.print(Integer.parseInt(value.toString()));
 			} else if (it instanceof StringItem) {
 				String msg = ((StringItem) it).getMsg();
 				System.out.print(msg);

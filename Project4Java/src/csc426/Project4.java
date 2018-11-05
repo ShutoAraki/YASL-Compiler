@@ -25,7 +25,7 @@ public class Project4 {
 //			String filename = args[0];
 			
 //			Scanner scanner = new Scanner(new FileReader("src/test_files/" + filename));
-			Scanner scanner = new Scanner(new FileReader("src/test_files/test2.txt"));
+			Scanner scanner = new Scanner(new FileReader("src/test_files/test5.txt"));
 			Parser parser = new Parser(scanner);
 			// This Program object is the root of the AST
 			Program program = parser.parseProgram();
