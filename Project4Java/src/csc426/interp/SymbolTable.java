@@ -1,12 +1,15 @@
 package csc426.interp;
 
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class SymbolTable {
 	
 	// Stack to keep track of different scopes
 	private Stack<HashMap<String, Value>> scopes;
+	// Scanner for input stream
+	public static Scanner sc = new Scanner(System.in);
 	
 	public SymbolTable() {
 //		t = new HashMap<String, Value>();

@@ -27,7 +27,7 @@ public class Input2 extends Stmt {
 	public Value interpret(SymbolTable t) {
 		IntCell lhs = (IntCell) t.lookup(id);
 		System.out.print(msg + " ");
-		Scanner sc = Project4.sc;
+		Scanner sc = SymbolTable.sc;
 		String input = sc.nextLine();
 		lhs.set(Integer.parseInt(input));
 		return new VoidValue();

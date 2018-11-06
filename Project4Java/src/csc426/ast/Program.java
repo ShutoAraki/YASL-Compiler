@@ -2,7 +2,6 @@ package csc426.ast;
 
 //import java.util.HashMap;
 
-import csc426.interp.Value;
 import csc426.interp.SymbolTable;
 
 public class Program extends ASTNode {
@@ -25,7 +24,6 @@ public class Program extends ASTNode {
     }
     
     public void interpret() {
-//    		HashMap<String, Value> t = new HashMap<String, Value>();
     		SymbolTable t = new SymbolTable();
     		t.enter();
     		block.interpret(t);

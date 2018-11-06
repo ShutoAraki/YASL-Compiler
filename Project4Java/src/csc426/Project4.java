@@ -17,9 +17,6 @@ import csc426.syntax.*;
  */
 public class Project4 {
 	
-	// Scanner for input stream
-	public static java.util.Scanner sc = new java.util.Scanner(System.in);
-	
 	public static void main(String[] args) throws IOException {
 		
 		if (args.length != 1) {
@@ -32,7 +29,7 @@ public class Project4 {
 			// This Program object is the root of the AST
 			Program program = parser.parseProgram();
 			program.interpret();
-			sc.close();
+//			sc.close();
 		}
 		
 	}

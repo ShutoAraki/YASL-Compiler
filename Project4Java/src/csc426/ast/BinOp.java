@@ -46,7 +46,7 @@ public class BinOp extends Expr {
 		
 		// TODO: Figure out a better way to parse an int
 		if (lhs instanceof IntValue) {
-			lhsIntVal = Integer.parseInt(lhs.toString());
+			lhsIntVal = ((IntValue) lhs).intValue();
 		}
 		if (rhs instanceof IntValue) {
 			rhsIntVal = Integer.parseInt(rhs.toString());
