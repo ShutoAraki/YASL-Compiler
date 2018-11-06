@@ -21,9 +21,12 @@ public class Input extends Stmt {
 
 	@Override
 	public Value interpret(SymbolTable t) {
-		System.out.print(msg);
 		Scanner sc = new Scanner(System.in);
-		sc.nextLine();
+		System.out.print(msg);
+		
+		// TODO: Needs to figure this one out?
+		if (sc.hasNextLine())
+			sc.nextLine();
 		sc.close();
 		return new VoidValue();
 	}

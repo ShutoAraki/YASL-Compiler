@@ -1,8 +1,6 @@
 package csc426.ast;
 
-import csc426.interp.BoolCell;
 import csc426.interp.BoolValue;
-import csc426.interp.IntCell;
 import csc426.interp.IntValue;
 import csc426.interp.SymbolTable;
 import csc426.interp.Value;
@@ -42,6 +40,7 @@ public class BinOp extends Expr {
 	public Value interpret(SymbolTable t) {
 		Value lhs = left.interpret(t);
 		Value rhs = right.interpret(t);
+				
 		int lhsIntVal = 0;
 		int rhsIntVal = 0;
 		
@@ -55,12 +54,12 @@ public class BinOp extends Expr {
 		
 		switch(op) {
 		case And:
-			if (((BoolValue) lhs).boolValue())
+			if (Boolean.parseBoolean(lhs.toString()))
 				return rhs;
 			else
 				return lhs;
 		case Or:
-			if (((BoolValue) lhs).boolValue())
+			if (Boolean.parseBoolean(lhs.toString()))
 				return lhs;
 			else
 				return rhs;

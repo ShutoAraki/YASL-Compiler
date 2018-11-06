@@ -10,7 +10,7 @@ fun g(y: int): bool;
 fun h(z: bool): bool;
   begin 
     z; 
-    print"Hey"
+    print "Hey"
   end;
 
 print f(42).

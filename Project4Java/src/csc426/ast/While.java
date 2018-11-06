@@ -25,7 +25,8 @@ public class While extends Stmt {
 	@Override
 	public Value interpret(SymbolTable t) {
 		BoolValue test = (BoolValue) expr.interpret(t);
-		while (test.boolValue()) {
+		
+		while (Boolean.parseBoolean(test.toString())) {
 			body.interpret(t);
 			test = (BoolValue) expr.interpret(t);
 		}

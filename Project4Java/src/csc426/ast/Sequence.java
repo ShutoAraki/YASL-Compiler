@@ -26,7 +26,7 @@ public class Sequence extends Stmt {
 	public Value interpret(SymbolTable t) {
 		for (int i = 0; i < ss.size() - 1; i++) {
 			ss.get(i).interpret(t);
-		}
+		}		
 		return ss.get(ss.size() - 1).interpret(t);
 	}
 
