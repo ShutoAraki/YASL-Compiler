@@ -17,6 +17,9 @@ import csc426.syntax.*;
  */
 public class Project4 {
 	
+	// Scanner for input stream
+	public static java.util.Scanner sc = new java.util.Scanner(System.in);
+	
 	public static void main(String[] args) throws IOException {
 		
 		if (args.length != 1) {
@@ -24,14 +27,13 @@ public class Project4 {
 		} else {
 			String filename = args[0];
 			
-			Scanner scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/test_files/" + filename));
-//			Scanner scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/src/test_files/demo4.yasl"));
+			Scanner scanner = new Scanner(new FileReader(System.getProperty("user.dir") + "/src/test_files/" + filename));
 			Parser parser = new Parser(scanner);
 			// This Program object is the root of the AST
 			Program program = parser.parseProgram();
 			program.interpret();
-//			program.display("");
-	 		scanner.close();
+			sc.close();
 		}
+		
 	}
 }

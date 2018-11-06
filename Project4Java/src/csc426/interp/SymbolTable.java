@@ -35,6 +35,8 @@ public class SymbolTable {
 		return defaultValue;
 	}
 	
+	// For compiler, this method has to take a name to keep track of scopes
+	// in intermediate code generation
 	public void enter() {
 		scopes.push(new HashMap<>());
 	}

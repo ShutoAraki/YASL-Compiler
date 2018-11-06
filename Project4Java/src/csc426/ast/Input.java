@@ -2,6 +2,7 @@ package csc426.ast;
 
 import java.util.Scanner;
 
+import csc426.Project4;
 import csc426.interp.SymbolTable;
 import csc426.interp.Value;
 import csc426.interp.VoidValue;
@@ -21,13 +22,12 @@ public class Input extends Stmt {
 
 	@Override
 	public Value interpret(SymbolTable t) {
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = Project4.sc;
 		System.out.print(msg);
 		
 		// TODO: Needs to figure this one out?
-		if (sc.hasNextLine())
-			sc.nextLine();
-		sc.close();
+		sc.nextLine();
+		
 		return new VoidValue();
 	}
 }

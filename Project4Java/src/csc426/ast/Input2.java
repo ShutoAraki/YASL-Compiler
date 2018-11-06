@@ -5,6 +5,7 @@ import java.util.Scanner;
 import csc426.interp.SymbolTable;
 import csc426.interp.Value;
 import csc426.interp.VoidValue;
+import csc426.Project4;
 import csc426.interp.IntCell;
 
 public class Input2 extends Stmt {
@@ -26,10 +27,9 @@ public class Input2 extends Stmt {
 	public Value interpret(SymbolTable t) {
 		IntCell lhs = (IntCell) t.lookup(id);
 		System.out.print(msg + " ");
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = Project4.sc;
 		String input = sc.nextLine();
 		lhs.set(Integer.parseInt(input));
-		sc.close();
 		return new VoidValue();
 	}
 
