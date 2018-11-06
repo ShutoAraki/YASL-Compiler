@@ -9,9 +9,5 @@ public class IntCell extends IntValue {
 	public void set(int x) {
 		intValue = x;
 	}
-	
-	public String toString() {
-		return Integer.toString(intValue);
-	}
 
 }

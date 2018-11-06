@@ -27,9 +27,9 @@ public class Assign extends Stmt {
 		Value rhs = expr.interpret(t);
 				
 		if (lhs instanceof IntCell)
-			((IntCell) lhs).set(Integer.parseInt(rhs.toString()));
+			((IntCell) lhs).set(rhs.intValue());
 		else 
-			((BoolCell) lhs).set(Boolean.parseBoolean(rhs.toString()));
+			((BoolCell) lhs).set(rhs.boolValue());
 		
 		return rhs;
 	}

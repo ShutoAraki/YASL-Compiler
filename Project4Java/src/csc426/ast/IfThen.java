@@ -26,7 +26,7 @@ public class IfThen extends Stmt {
 	@Override
 	public Value interpret(SymbolTable t) {
 		BoolValue test = (BoolValue) expr.interpret(t);
-		if (Boolean.parseBoolean(test.toString()))
+		if (test.boolValue())
 			return s1.interpret(t);
 		else
 			return new VoidValue();

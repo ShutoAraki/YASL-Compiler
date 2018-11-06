@@ -17,9 +17,5 @@ public class Param extends ASTNode {
 	public void display(String indentation) {
 		System.out.println(indentation + "Val " + id + " : " + type);
 	}
-	
-	public String toString() {
-		return id + " : " + type;
-	}
 
 }

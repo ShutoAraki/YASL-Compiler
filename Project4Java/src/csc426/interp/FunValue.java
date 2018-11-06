@@ -28,4 +28,16 @@ public class FunValue extends Value{
 		ans += "Type: " + type + "\n";
 		return ans;
 	}
+	
+	public int intValue() {
+		System.err.println("Cannot get int from function value");
+		System.exit(0);
+		return 0;
+	}
+
+	public boolean boolValue() {
+		System.err.println("Cannot get boolean from function value");
+		System.exit(0);
+		return false;
+	}
 }

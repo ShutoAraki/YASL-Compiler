@@ -5,7 +5,6 @@ import java.util.Scanner;
 import csc426.interp.SymbolTable;
 import csc426.interp.Value;
 import csc426.interp.VoidValue;
-import csc426.Project4;
 import csc426.interp.IntCell;
 
 public class Input2 extends Stmt {

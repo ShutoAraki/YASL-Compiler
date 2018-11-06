@@ -46,20 +46,20 @@ public class BinOp extends Expr {
 		
 		// TODO: Figure out a better way to parse an int
 		if (lhs instanceof IntValue) {
-			lhsIntVal = ((IntValue) lhs).intValue();
+			lhsIntVal = lhs.intValue();
 		}
 		if (rhs instanceof IntValue) {
-			rhsIntVal = Integer.parseInt(rhs.toString());
+			rhsIntVal = rhs.intValue();
 		}
 		
 		switch(op) {
 		case And:
-			if (Boolean.parseBoolean(lhs.toString()))
+			if (lhs.boolValue())
 				return rhs;
 			else
 				return lhs;
 		case Or:
-			if (Boolean.parseBoolean(lhs.toString()))
+			if (lhs.boolValue())
 				return lhs;
 			else
 				return rhs;

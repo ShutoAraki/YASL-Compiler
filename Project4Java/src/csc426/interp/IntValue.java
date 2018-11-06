@@ -11,8 +11,10 @@ public class IntValue extends Value {
 	public int intValue() {
 		return intValue;
 	}
-	
-	public String toString() {
-		return Integer.toString(intValue);
+
+	public boolean boolValue() {
+		System.err.println("Cannot get a boolean value from int");
+		System.exit(0);
+		return false;
 	}
 }

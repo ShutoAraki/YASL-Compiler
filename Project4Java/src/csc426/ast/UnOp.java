@@ -26,9 +26,9 @@ public class UnOp extends Expr {
 		Value value = expr.interpret(t);
 		switch(op) {
 		case Neg:
-			return new IntValue(- Integer.parseInt(value.toString()));
+			return new IntValue(- value.intValue());
 		case Not:
-			return new BoolValue(! Boolean.parseBoolean(value.toString()));
+			return new BoolValue(! value.boolValue());
 		default:
 			return null; // unreachable
 		}

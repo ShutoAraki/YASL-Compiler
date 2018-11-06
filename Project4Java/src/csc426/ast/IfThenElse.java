@@ -27,7 +27,7 @@ public class IfThenElse extends Stmt {
 	@Override
 	public Value interpret(SymbolTable t) {
 		BoolValue test = (BoolValue) expr.interpret(t);
-		if (Boolean.parseBoolean(test.toString()))
+		if (test.boolValue())
 			return s1.interpret(t);
 		else
 			return s2.interpret(t);

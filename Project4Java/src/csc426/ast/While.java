@@ -1,6 +1,5 @@
 package csc426.ast;
 
-import csc426.interp.BoolValue;
 import csc426.interp.SymbolTable;
 import csc426.interp.Value;
 import csc426.interp.VoidValue;
@@ -24,11 +23,11 @@ public class While extends Stmt {
 
 	@Override
 	public Value interpret(SymbolTable t) {
-		BoolValue test = (BoolValue) expr.interpret(t);
+		Value test = expr.interpret(t);
 		
-		while (Boolean.parseBoolean(test.toString())) {
+		while (test.boolValue()) {
 			body.interpret(t);
-			test = (BoolValue) expr.interpret(t);
+			test = expr.interpret(t);
 		}
 		return new VoidValue();
 	}

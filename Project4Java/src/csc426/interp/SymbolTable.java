@@ -12,7 +12,6 @@ public class SymbolTable {
 	public static Scanner sc = new Scanner(System.in);
 	
 	public SymbolTable() {
-//		t = new HashMap<String, Value>();
 		scopes = new Stack<>();
 		enter();
 	}
@@ -46,9 +45,5 @@ public class SymbolTable {
 	
 	public void exit() {
 		scopes.pop();
-	}
-	
-	public String toString() {
-		return scopes.peek().toString();
 	}
 }
