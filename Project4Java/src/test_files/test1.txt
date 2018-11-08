@@ -1,0 +1,24 @@
+program demo1;
+/* Declare some constants */
+val x = 6;
+val y = 7;
+// These are variables
+var a : int;
+var b : bool;
+var c : void;
+
+
+fun foo(): void;
+  val a = 42;
+  var b: bool;
+  begin
+    let c1 = x * y;
+    let b = a == c1;
+    if b then
+      if b or not b then
+        print "Hooray!"
+    else
+      print "Boo!"
+  end;
+
+foo().

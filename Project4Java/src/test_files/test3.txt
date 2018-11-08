@@ -1,0 +1,25 @@
+// This program shows just about all of YASL except for recursion
+program demo4;
+  /* Declare some constants */
+  val x = 6;
+  val y = 7;
+  val z = -120;
+  /* Declare some variables */
+  var a: int;
+  var b: bool;
+  var c1: int; var c2: int;
+
+  fun bar(n: int, b: bool): int;
+    begin
+      if b then
+        n - 1
+      else
+        42
+    end;
+
+begin
+  input "Enter a number", a;
+  let c1 = bar(a, a - 4 <> x * y);
+  bar(a, 4 <> x);
+  print c1
+end.

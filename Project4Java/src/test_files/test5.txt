@@ -1,0 +1,16 @@
+program quiz;
+
+fun f(x: int): bool;
+  h(x == 0) or g(x - 1);
+
+fun g(y: int): bool;
+  val z = 12;
+  if y == 0 then h(z == y) else f(z);
+
+fun h(z: bool): bool;
+  begin 
+    z; 
+    print "Hey"
+  end;
+
+print f(42).
