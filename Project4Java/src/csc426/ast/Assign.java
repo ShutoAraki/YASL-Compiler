@@ -25,7 +25,7 @@ public class Assign extends Stmt {
 		
 		Value lhs = t.lookup(id);
 		Value rhs = expr.interpret(t);
-				
+		
 		if (lhs instanceof IntCell)
 			((IntCell) lhs).set(rhs.intValue());
 		else 

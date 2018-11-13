@@ -16,7 +16,7 @@ program demo4;
     let c1 = x * y;
     let b = a == c1;
     if b then
-      if b or not b then
+      if b and not b then
         print "Hooray!"
     else
       print "Boo!"

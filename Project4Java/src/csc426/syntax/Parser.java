@@ -521,6 +521,9 @@ public class Parser {
 		} else if (check(TokenType.MOD)) {
 			match(TokenType.MOD);
 			return Op2.Mod;
+		} else if (check(TokenType.AND)) {
+			match(TokenType.AND);
+			return Op2.And;
 		} else {
 			System.err.println("Invalid multiplication operator: " + current);
 			System.exit(1);

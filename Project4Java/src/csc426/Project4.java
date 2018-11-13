@@ -1,15 +1,13 @@
 package csc426;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.FileReader;
 
 import csc426.ast.Program;
 import csc426.syntax.*;
 
 /**
- * Main class for Project 3
+ * Main class for Project 4
  * 	The main method displays the abstract syntax tree (AST)
  *  of the input with proper indentations.
  * 
@@ -29,7 +27,6 @@ public class Project4 {
 			// This Program object is the root of the AST
 			Program program = parser.parseProgram();
 			program.interpret();
-//			sc.close();
 		}
 		
 	}

@@ -55,14 +55,14 @@ public class BinOp extends Expr {
 		switch(op) {
 		case And:
 			if (lhs.boolValue())
-				return rhs;
+				return right.interpret(t);
 			else
 				return lhs;
 		case Or:
 			if (lhs.boolValue())
 				return lhs;
 			else
-				return rhs;
+				return right.interpret(t);
 		case EQ:
 			return new BoolValue(lhsIntVal == rhsIntVal);
 		case NE:
